@@ -12,6 +12,7 @@ gem 'httparty'
 gem 'geokit-rails'
 gem 'twitter'
 gem 'guardian-content'
+gem 'faker'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -46,6 +47,8 @@ gem 'jbuilder', '~> 2.5'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
 end
 
 group :development do
