@@ -8,6 +8,9 @@ gem 'omniauth-twitter'
 gem 'dotenv-rails'
 gem 'redis-rails'
 gem 'redis-namespace'
+gem 'httparty'
+gem 'geokit-rails'
+gem 'twitter'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
