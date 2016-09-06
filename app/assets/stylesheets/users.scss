@@ -1,3 +1,91 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$background-color: #FAFAFA;
+$primary-color: rgba(143,143,143,0.5);
+$secondary-color: #02C1DC;
+$font-color: #222;
+$minor-padding: 10px;
+
+body {
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  font-family: Helvetica, Arial, sans-serif;
+  background-color: $background-color;
+  color: $font-color;
+}
+
+.header {
+  width: calc(100% - 2 * $minor-padding);
+  height: 20vh;
+  display: flex;
+  flex-flow: row nowrap;
+  background-color: $background-color;
+  box-sizing: border-box;
+  margin: 0px $minor-padding;
+
+  .left {
+    flex: 1 0 20%;
+    box-sizing: border-box;
+    padding-left: 10px;
+  }
+  .right {
+    box-sizing: border-box;
+    flex: 1 0 20%;
+    text-align: right;
+    padding-right: 10px;
+  }
+  .center {
+    flex: 1 0 60%;
+    // background-color: $secondary-color;
+    h1 {
+      text-align: center;
+    }
+  }
+}
+
+.content {
+  @extend .header;
+  height: 70vh;
+  div {
+
+    flex: 1 1 30%;
+    background-color: $background-color;
+    padding: $minor-padding;
+    padding-top: 3 * $minor-padding;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    border-top: none;
+    // border-image: image-url('border.png') 1 1 stretch;
+    border-image: linear-gradient(transparent 0%, transparent 10%, black 10%, black 90%, transparent 90%, transparent 100%) 1 1 stretch;
+  }
+  .twitter {
+    border-left: none;
+    .tweets, .top, .tweet {
+      background-color: transparent;
+      padding: 0.5 * $minor-padding;
+      border: none;
+    }
+    .top {
+      font-size: 2em;
+      font-weight: 600;
+      color: $secondary-color;
+      text-align: center;
+    }
+  }
+  .todo {
+    border-right: none;
+  }
+  .news {
+    border-right: 1px solid black;
+  }
+}
+
+
+.footer {
+  @extend .header;
+  height: 10vh;
+}
