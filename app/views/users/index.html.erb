@@ -1,0 +1,47 @@
+<div class="container">
+
+<div class="header">
+  <div class="left">
+  asdf asdf asdf asdf asdf asdf asdf asdf asdf
+  asdf asdf asdf asdf asdf asdf asdf asdf asdf
+  asdf asdf asdf asdf asdf asdf asdf asdf asdf
+  </div>
+  <div class="center">
+    <h1>Welcome, Username!</h1>
+  </div>
+  <div class="right">
+  asdf asdf asdf asdf asdf asdf asdf asdf asdf
+  asdf asdf asdf asdf asdf asdf asdf asdf asdf
+  asdf asdf asdf asdf asdf asdf asdf asdf asdf
+
+  </div>
+</div>
+
+<div class="content">
+  <div class="twitter">
+    <div class="top">
+      Twitter
+    </div>
+    <div class="tweets">
+    <%# @global_trends.each_with_index do |tweet,index| %>
+        <%# if index < 10 %>
+        <% 15.times do %>
+          <div class="tweet">
+            #<%= Faker::Name.last_name %>
+            <%#= tweet.name %>
+          </div>
+          <% end %>
+        <%# end %>
+    <%# end %>
+    </div>
+  </div>
+  <div class="news">
+  </div>
+  <div class="todo">
+  </div>
+</div>
+
+<div class="footer">
+</div>
+
+</div>
