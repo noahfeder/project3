@@ -11,7 +11,9 @@ gem 'redis-namespace'
 gem 'httparty'
 gem 'geokit-rails'
 gem 'twitter'
+gem 'guardian-content'
 gem 'faker'
+
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
