@@ -21,14 +21,16 @@
     <%# loop through local and global trends and log each of them %>
       <div class="tweetset">
       <h2>Local Trends</h2>
-      <% @local_trends.each_with_index do |tweet,index| %>
-          <% if index < 10 %>
+      <% if @local_trends %>
+        <% @local_trends.each_with_index do |tweet,index| %>
+            <% if index < 10 %>
 
-            <div class="tweet">
-              <%= link_to tweet["name"], tweet["url"] %>
-            </div>
+              <div class="tweet">
+                <%= link_to tweet["name"], tweet["url"] %>
+              </div>
 
-          <% end %>
+            <% end %>
+        <% end %>
       <% end %>
       </div>
       <div class="tweetset">
@@ -59,7 +61,7 @@
      <%= f.text_field :item, placeholder: "what needs doing?" %>
     </div>
     <div class="form-group">
-     <%= f.text_field :user_id, value: 1 %>
+     <%= f.hidden_field :user_id, value: "#{@user.id}" %>
     </div>
 
   <% end %>
@@ -67,10 +69,12 @@
   <button class="submit_item">submit</button>
 
   <ul class="items">
-  <% @todos.each do |todo| %>
-    <li>
-      <%= todo.item %><br>
-    </li>
+  <% if @todos %>
+    <% @todos.each do |todo| %>
+      <li>
+        <%= todo.item %><br>
+      </li>
+    <% end %>
   <% end %>
   </ul>
 
