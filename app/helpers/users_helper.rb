@@ -21,7 +21,6 @@ module UsersHelper
     @woeid = woeid.to_i
     local_trends = $redis.get("local_trends_#{@woeid}")
     if local_trends.nil?
-      byebug
       response = twitter.trends(id = @woeid)
       local_trends = JSON.generate(response.attrs[:trends])
       $redis.set("local_trends_#{@woeid}", local_trends)
