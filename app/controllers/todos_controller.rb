@@ -5,8 +5,10 @@ class TodosController < ApplicationController
   end
 
   def create
+    binding.pry
     Todo.create(todo_params)
-    redirect_to root_path #TODO SEND BACK JSON INSTEAD
+    render json: @todos
+    # redirect_to root_path
   end
 
   def destroy
