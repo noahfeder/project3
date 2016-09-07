@@ -17,8 +17,8 @@ module UsersHelper
   # caches trends for 15 minutes
   # @param woeid FixNum
   # TODO change param to be user or user location
-  def fetch_local_trends(woeid)
-    @woeid = woeid.to_i
+  def fetch_local_trends(user)
+    @woeid = user.woeid.to_i
     local_trends = $redis.get("local_trends_#{@woeid}")
     if local_trends.nil?
       response = twitter.trends(id = @woeid)
@@ -42,6 +42,14 @@ module UsersHelper
 
   def fetch_articles_by_topic(topic)
     #TODO search by params
+  end
+
+  def get_location
+      @ip = request.remote_ip
+      @ll = Geocoder.coordinates(@ip)
+      @lat = @ll[0]
+      @long = @ll[1]
+      @woeid = twitter.trends_closest(lat: @lat, long: @long)[0].id # TODO preference storing id on signup
   end
 
 end
