@@ -24,7 +24,7 @@ $(function(){
     var method = $(this).attr('method');
 
     var item = $(this).find('#todo_item').val();
-    var data = $(this).serializeArray();
+    // var data = $(this).serializeArray();
 
       $.ajax({
       "method" : "method",

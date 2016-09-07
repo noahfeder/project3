@@ -3,8 +3,6 @@ source 'https://rubygems.org'
 gem 'better_errors'
 gem 'pry'
 gem 'annotate'
-gem 'omniauth-identity'
-gem 'omniauth-twitter'
 gem 'dotenv-rails'
 gem 'redis-rails'
 gem 'redis-namespace'
@@ -13,6 +11,7 @@ gem 'geocoder'
 gem 'twitter'
 gem 'guardian-content'
 gem 'faker'
+gem 'binding_of_caller'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -39,7 +38,7 @@ gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
- gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
