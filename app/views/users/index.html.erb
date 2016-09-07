@@ -2,18 +2,13 @@
 
 <div class="header">
   <div class="left">
-  asdf asdf asdf asdf asdf asdf asdf asdf asdf
-  asdf asdf asdf asdf asdf asdf asdf asdf asdf
-  asdf asdf asdf asdf asdf asdf asdf asdf asdf
+    <img src="http://placekitten.com/150/100">
   </div>
   <div class="center">
     <h1>Welcome, Username!</h1>
   </div>
   <div class="right">
-  asdf asdf asdf asdf asdf asdf asdf asdf asdf
-  asdf asdf asdf asdf asdf asdf asdf asdf asdf
-  asdf asdf asdf asdf asdf asdf asdf asdf asdf
-
+  <img src="http://placekitten.com/150/100">
   </div>
 </div>
 
@@ -23,16 +18,31 @@
       Twitter
     </div>
     <div class="tweets">
-    <%# @global_trends.each_with_index do |tweet,index| %>
-        <%# if index < 10 %>
-        <% 15.times do %>
-          <div class="tweet">
-            #<%= Faker::Name.last_name %>
-            <%#= tweet.name %>
-          </div>
+    <%# loop through local and global trends and log each of them %>
+      <div class="tweetset">
+      <h2>Local Trends</h2>
+      <% @local_trends.each_with_index do |tweet,index| %>
+          <% if index < 10 %>
+
+            <div class="tweet">
+              <%= link_to tweet["name"], tweet["url"] %>
+            </div>
+
           <% end %>
-        <%# end %>
-    <%# end %>
+      <% end %>
+      </div>
+      <div class="tweetset">
+      <h2>Global Trends</h2>
+      <% @global_trends.each_with_index do |tweet,index| %>
+          <% if index < 10 %>
+
+            <div class="tweet">
+              <%= link_to tweet["name"], tweet["url"] %>
+            </div>
+
+          <% end %>
+      <% end %>
+      </div>
     </div>
   </div>
   <div class="news">
