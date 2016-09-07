@@ -34,7 +34,6 @@ module UsersHelper
     if response.nil?
       base_uri = "http://content.guardianapis.com/search?q=sortBy=popular"
       response = JSON.generate(HTTParty.get(base_uri+ "&api-key=" + ENV['GUARDIAN_API_KEY'])["response"]["results"])
-      byebug
       $redis.set("news", response)
       $redis.expire("news", 5.minutes.to_i)
     end
