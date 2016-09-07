@@ -26,7 +26,10 @@ body {
   background-color: $background-color;
   box-sizing: border-box;
   margin: 0px $minor-padding;
-
+  img {
+    width: 100%;
+    height: auto;
+  }
   .left {
     flex: 1 0 20%;
     box-sizing: border-box;
@@ -74,6 +77,20 @@ body {
       font-weight: 600;
       color: $secondary-color;
       text-align: center;
+    }
+    .tweets {
+      display: flex;
+      flex-flow: row nowrap;
+      .tweetset {
+        flex: 1 0 50%;
+        border: 1px solid black;
+        height: 100%;
+        padding: 5px;
+        word-wrap: break-word;
+        h2 {
+          color: $secondary-color;
+        }
+      }
     }
   }
   .todo {
