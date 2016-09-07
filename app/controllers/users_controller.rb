@@ -6,7 +6,8 @@ class UsersController < ApplicationController
     fetch_global_trends
     @todos = Todo.all
     @user = User.find_by_id(session[:user_id]) || User.new
-    # render :index
+    base_uri = "http://content.guardianapis.com/search?q=sortBy=popular"
+    @response = HTTParty.get(base_uri+ "&api-key=" + ENV['GUARDIAN_API_KEY'])["response"]["results"]
   end
 
   def new

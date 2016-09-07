@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
 
   def index
       base_uri = "http://content.guardianapis.com/search?q=sortBy=popular"
-      @response = HTTParty.get(base_uri+ "&api-key=" + ENV['GUARDIAN_KEY'])["response"]["results"]
+      @response = HTTParty.get(base_uri+ "&api-key=" + ENV['GUARDIAN_API_KEY'])["response"]["results"]
       puts @response
       @response
   end
