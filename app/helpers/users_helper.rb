@@ -29,4 +29,20 @@ module UsersHelper
     @local_trends = JSON.load(local_trends)
   end
 
+  def fetch_articles
+    response = $redis.get('news')
+    if response.nil?
+      base_uri = "http://content.guardianapis.com/search?q=sortBy=popular"
+      response = JSON.generate(HTTParty.get(base_uri+ "&api-key=" + ENV['GUARDIAN_API_KEY'])["response"]["results"])
+      byebug
+      $redis.set("news", response)
+      $redis.expire("news", 5.minutes.to_i)
+    end
+    @response = JSON.load(response)
+  end
+
+  def fetch_articles_by_topic(topic)
+    #TODO search by params
+  end
+
 end

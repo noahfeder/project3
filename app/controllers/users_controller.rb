@@ -3,11 +3,10 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   def index
     fetch_local_trends(2380358) #TODO: Add lookup by User instead of woeid
-    fetch_global_trends
+    fetch_global_trends #returns @global_trends
     @todos = Todo.all
     @user = User.find_by_id(session[:user_id]) || User.new
-    base_uri = "http://content.guardianapis.com/search?q=sortBy=popular"
-    @response = HTTParty.get(base_uri+ "&api-key=" + ENV['GUARDIAN_API_KEY'])["response"]["results"]
+    fetch_articles
   end
 
   def new
