@@ -1,5 +1,7 @@
 class User < ApplicationRecord
 
+has_many :todos
+
   def self.from_omniauth(auth)
     find_by_provider_uid(auth['provider'], auth['uid']) || create_with_omniauth(auth)
   end

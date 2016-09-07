@@ -3,7 +3,8 @@ class UsersController < ApplicationController
   def index
     fetch_local_trends(2380358) #TODO: Add lookup by User instead of woeid
     fetch_global_trends
-    render :index
+    @todos = Todo.all
+    # render :index
   end
 
   def new

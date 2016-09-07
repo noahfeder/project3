@@ -3,4 +3,6 @@ Rails.application.routes.draw do
   root to: "users#index"
   resources :users #TODO restrict
   resources :identities
+  resources :todos
+
 end
