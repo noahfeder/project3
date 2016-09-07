@@ -1,0 +1,19 @@
+<div class="login">
+<%= form_tag(controller: :sessions, action: :create, method: "post") do %>
+
+  <div class="field">
+    <%= label_tag :email, "Username" %>
+    <%= text_field_tag :email %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :password, "Password" %>
+    <%= password_field_tag :password %>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag "Log-In" %>
+  </div>
+<% end %>
+
+</div>
