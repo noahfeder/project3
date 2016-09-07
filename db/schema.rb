@@ -10,47 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160907004633) do
+
+ActiveRecord::Schema.define(version: 20160907192819) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "articles", force: :cascade do |t|
-    t.string   "sectionId"
-    t.string   "webPublicationDate"
-    t.string   "webTitle"
-    t.string   "webUrl"
-    t.string   "type"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-  end
 
-  create_table "identities", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
-  create_table "user_preferences", force: :cascade do |t|
-    t.string   "date_of_birth"
-    t.string   "location"
-    t.string   "color_theme"
-    t.string   "topics"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+  create_table "todos", force: :cascade do |t|
     t.integer  "user_id"
-    t.index ["user_id"], name: "index_user_preferences_on_user_id", using: :btree
+    t.string   "item"
+    t.boolean  "completed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_todos_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "uid"
     t.string   "email"
+    t.string   "password_digest"
+    t.string   "lat"
+    t.string   "lng"
+    t.string   "woeid"
+    t.string   "fname"
+    t.string   "lname"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.string   "password_digest"
   end
 
-  add_foreign_key "user_preferences", "users"
+  add_foreign_key "todos", "users"
 end

@@ -1,7 +1,11 @@
 FactoryGirl.define do
   factory :user do
-    uid "MyString"
-    pw_digest "MyString"
     email "MyString"
+    password_digest "MyString"
+    lat "MyString"
+    lng "MyString"
+    woeid "MyString"
+    fname "MyString"
+    lname "MyString"
   end
 end
