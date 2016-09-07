@@ -46,6 +46,9 @@
     </div>
   </div>
   <div class="news">
+    <% @response.each do |article| %>
+    <p> <%= link_to article["webTitle"], article["webUrl"] %> </p>
+  <% end %>
   </div>
   <div class="todo">
 
