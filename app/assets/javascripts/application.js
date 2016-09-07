@@ -14,3 +14,24 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+// POTENTIAL SAMPLE AJAX CALL
+// function createTodo() {
+//   e.preventDefault();
+
+//   data = {
+//     "item" : $(whatever).val(),
+//     "completed" : $(whatever).val(),
+//     "user_id" : $(whatever).val()
+//   }
+
+//   $.ajax({
+//     "method" : "POST",
+//     "url"    : "APP_URL/todos/create",
+//     "data"   : data,
+//     "datatype" : "json"
+//   }).always(function() {
+//     $(div).append()
+//   })
+// }
+

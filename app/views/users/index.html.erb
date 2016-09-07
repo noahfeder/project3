@@ -48,6 +48,30 @@
   <div class="news">
   </div>
   <div class="todo">
+
+  <h2>Objectives</h2>
+
+  <%= form_for Todo.new do |f| %>
+    <div class="form-group">
+     <%= f.text_field :item, placeholder: "what needs doing?" %>
+    </div>
+    <div class="form-group">
+     <%= f.text_field :user_id, value: 1 %>
+    </div>
+
+    <div class="form-group">
+    <%= f.submit %>
+    </div>
+  <% end %>
+
+  <ul>
+  <% @todos.each do |todo| %>
+    <li>
+      <%= todo.item %><br>
+    </li>
+  <% end %>
+  </ul>
+
   </div>
 </div>
 
