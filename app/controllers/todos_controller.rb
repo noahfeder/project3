@@ -5,9 +5,9 @@ class TodosController < ApplicationController
   end
 
   def create
-    binding.pry
+    #   binding.pry
     Todo.create(todo_params)
-    render json: @todos
+    render data: @todos
     # redirect_to root_path
   end
 

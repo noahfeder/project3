@@ -15,6 +15,9 @@
 //= require turbolinks
 //= require_tree .
 
+$( document ).ready(function() {
+
+console.log( "ready!" );
 
 $(function(){
   $("form").submit(function(e){
@@ -24,17 +27,20 @@ $(function(){
     var method = $(this).attr('method');
 
     var item = $(this).find('#todo_item').val();
-    // var data = $(this).serializeArray();
+    var data = $(this).serializeArray(); //turns data to json object ----https://api.jquery.com/serializeArray/
 
       $.ajax({
       "method" : "method",
       "url" : "action",
       "data" : "data",
-      "datatype" : "json"
     });
   });
 });
 
+
+
+
+});
 // POTENTIAL SAMPLE AJAX CALL
 // function createTodo() {
 //   e.preventDefault();
