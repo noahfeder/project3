@@ -6,19 +6,19 @@ class TodosController < ApplicationController
 
   def create
     #   binding.pry
-    Todo.create(todo_params)
-    render data: @todos
+    @todo =  Todo.create({:item =>params[:item],
+      :user_id =>params[:user_id], :completed => !params[:completed].to_i.zero?})
+    render json: @todo
     # redirect_to root_path
   end
 
   def destroy
     todo = Todo.find(params[:id])
     todo.destroy
-    redirect_to root_path
   end
 
-  private
-    def todo_params
-      params.require(:todo).permit(:item,:user_id)
-    end
+  # private
+    # def todo_params
+    #   params.require(:todo).permit(:item,:user_id,:completed)
+    # end
 end

@@ -17,28 +17,40 @@
 
 $( document ).ready(function() {
 
-console.log( "ready!" );
+  console.log( "ready!" );
 
-$(function(){
-  $("form").submit(function(e){
-    e.preventDefault();
-
-    var action = $(this).attr('action');
-    var method = $(this).attr('method');
-
-    var item = $(this).find('#todo_item').val();
-    var data = $(this).serializeArray(); //turns data to json object ----https://api.jquery.com/serializeArray/
-
-      $.ajax({
-      "method" : "method",
-      "url" : "action",
-      "data" : "data",
-    });
+  $(".submit_item").click(function() {
+    submitForm();
   });
-});
 
+  $("#new_todo").submit(function(e){
+    e.preventDefault();
+  });
 
+  var submitForm = function(){
+    console.log("click")
+    var dataToSend = {
+      "user_id" : $("#todo_user_id").val(),
+      "item" : $('#todo_item').val(),
+      "completed" : 0
 
+    };
+      $.ajax({
+      "method" : "POST",
+      "url" : "/todos",
+      "data" : dataToSend,
+      "datatype" : "json"
+    }).always(function(data){
+      appendItem(data);
+    });
+  };
+
+  var appendItem = function(data) {
+    var $items = $(".items");
+    var $li = $("<li>");
+    $li.text(data.item);
+    $items.append($li);
+  };
 
 });
 // POTENTIAL SAMPLE AJAX CALL

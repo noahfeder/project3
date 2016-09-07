@@ -62,12 +62,11 @@
      <%= f.text_field :user_id, value: 1 %>
     </div>
 
-    <div class="form-group">
-    <%= f.submit %>
-    </div>
   <% end %>
 
-  <ul>
+  <button class="submit_item">submit</button>
+
+  <ul class="items">
   <% @todos.each do |todo| %>
     <li>
       <%= todo.item %><br>
