@@ -51,7 +51,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    # TODO add delete account info
+    @user = User.find_by_id(params[:id])
+    @user.destroy
+    redirect_to "/signout"
   end
 
   private

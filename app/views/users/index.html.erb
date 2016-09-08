@@ -7,14 +7,9 @@
   </div>
 
   <div class="right">
-  <h2>EL SOL</h2>
-  <% @results.each do |forecast| %>
-  <%= forecast["main"].first["temp"],forecast["clouds"] %>
-
-  <% end %>
+  <p> Temp <%= @results["main"]["temp"]%></p>
 
   </div>
-
 </div>
 
 <div class="content">
@@ -97,6 +92,7 @@
 <div class="footer">
     <%# moved signout link to footer instead of application.html.erb%>
     <%= link_to "Signout", "/signout", class: "signout" %>
+    <%= link_to "Delete Account", "/users/#{@user.id}", method: "delete" %>
 </div>
 
 </div>
