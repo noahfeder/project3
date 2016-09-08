@@ -1,15 +1,11 @@
 <div class="container">
 
 <div class="header">
-  <div class="left">
-    <img src="http://placekitten.com/150/100">
-  </div>
+  <div class="left"></div>
   <div class="center">
     <h1>Welcome, <%= @user.fname %>!</h1>
   </div>
-  <div class="right">
-  <img src="http://placekitten.com/150/100">
-  </div>
+  <div class="right"></div>
 </div>
 
 <div class="content">
@@ -36,7 +32,7 @@
       <% @global_trends.each_with_index do |tweet,index| %>
           <% if index < 10 %>
             <div class="tweet">
-              <%= link_to tweet["name"], tweet["url"] %>
+              <%= link_to tweet["name"], tweet["url"], target: "_blank" %>
             </div>
           <% end %>
       <% end %>
@@ -50,7 +46,7 @@
     <%# added wrapper div for good scrolling action %>
     <div class="headlines">
     <% @response.each do |article| %>
-      <p class="headline"> <%= link_to article["webTitle"], article["webUrl"] %> </p>
+      <p class="headline"> <%= link_to article["webTitle"], article["webUrl"], target: "_blank" %> </p>
     <% end %>
     </div>
   </div>

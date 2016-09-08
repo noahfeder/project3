@@ -111,6 +111,8 @@ body {
         h2 {
           color: $secondary-color;
           text-align: center;
+          margin: 0.5 * $minor-padding;
+          font-size: 1.2em;
         }
       }
       .local {
@@ -127,6 +129,8 @@ body {
       height: 90%;
       overflow: scroll;
       border: none;
+      padding-top: 0;
+      margin-top: 2 * $minor-padding;
     }
     .top {
       color: $tertiary-color;
@@ -169,6 +173,7 @@ body {
       -webkit-margin-end: 0px;
       -webkit-padding-start: 0px;
       .todo {
+        position: relative;
         &:nth-child(even) {
           background-color: $primary-color;
         }
@@ -180,6 +185,10 @@ body {
         }
         span {
           padding: 0px 3px;
+          width: auto;
+          height: auto;
+          position: absolute;
+          left: 20px;
         }
       }
     }
