@@ -36,5 +36,10 @@ ActiveRecord::Schema.define(version: 20160908003003) do
     t.datetime "updated_at",      null: false
   end
 
+  create_table "weathers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "todos", "users"
 end
