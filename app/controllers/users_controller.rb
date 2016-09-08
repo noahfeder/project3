@@ -34,6 +34,7 @@ class UsersController < ApplicationController
       fetch_local_trends(@user)
     end
     fetch_articles
+    fetch_weather
   end
 
   def new
