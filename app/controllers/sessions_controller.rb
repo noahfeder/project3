@@ -6,6 +6,11 @@ class SessionsController < ApplicationController
     if user.nil?
       redirect_to root_path
     else
+      cookies.encrypted[:user_id] = {
+        value: user.id,
+        expires: 20.years.from_now
+      }
+      puts cookies.encrypted[:user_id]
       session[:user_id] = user.id
       redirect_to root_path
     end
