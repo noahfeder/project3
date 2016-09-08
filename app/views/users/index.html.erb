@@ -8,7 +8,11 @@
     <h1>Welcome, <%= @user.fname %>!</h1>
   </div>
   <div class="right">
-  <img src="http://placekitten.com/150/100">
+  <h5>EL SOL</h5>
+  <% @results.each do |forecast| %>
+  <p class="weather"><% forecast["weather"] %>
+  <% end %>
+
   </div>
 </div>
 
