@@ -12,10 +12,8 @@
   <% if logged_in %>
     <%= yield %>
   <% else %>
-  <%= yield %>
-    <% #render "login_form" %>
-    <hr>
-    <% #render "create_form", user: @user %>
+    <%= render "login_form" %>
+    <%= render "create_form", user: @user %>
   <% end %>
   </body>
 </html>
