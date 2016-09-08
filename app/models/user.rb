@@ -16,7 +16,7 @@
 
 class User < ApplicationRecord
   has_secure_password
-  has_many :todos
+  has_many :todos, :dependent => :destroy
   validates :password, length: {minimum: 2,
     message: "Password too short"}
   validates :email, uniqueness: true
