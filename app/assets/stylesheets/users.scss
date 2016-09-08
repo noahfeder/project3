@@ -19,6 +19,7 @@ body {
   font-family: Helvetica, Arial, sans-serif;
   background-color: $background-color;
   color: $font-color;
+  // standardizing links across the page
   a {
     text-decoration: none;
     color: $font-color;
@@ -91,6 +92,7 @@ body {
     }
     .tweets {
       position: relative;
+      // some funky CSS to make a flippable "card"
       transform-style: preserve-3d;
       transition: 400ms transform;
       .tweetset {
@@ -102,7 +104,10 @@ body {
         left: 0;
         padding: 5px;
         word-wrap: break-word;
+        // some funky CSS to make a flippable "card"
         -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
         h2 {
           color: $secondary-color;
           text-align: center;
@@ -118,7 +123,8 @@ body {
     border-right: 1px solid black;
     overflow: hidden;
     .headlines {
-      height: 100%;
+      // needs fixed height for overflow:scroll to work
+      height: 90%;
       overflow: scroll;
       border: none;
     }
@@ -133,6 +139,7 @@ body {
       color: $quarternary-color;
     }
     .form_and_button {
+      // added wrapper for better spacing
       display: flex;
       flex-flow: row nowrap;
       border: none;
@@ -153,7 +160,7 @@ body {
       }
     }
     .items {
-      clear: both;
+      //stripping out the default ul and li styling
       list-style-type: none;
       padding-top: 10px;
       -webkit-margin-before: 0;
@@ -183,8 +190,14 @@ body {
 .footer {
   @extend .header;
   height: 10vh;
+  .signout {
+    text-align: center;
+    margin: 0 auto;
+    padding: calc(5vh - 1em) 0;
+  }
 }
 
+// toggle-able class for tweetset divs
 .rotate {
   transform: rotateY(180deg);
 }
