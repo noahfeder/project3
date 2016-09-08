@@ -24,8 +24,13 @@ $(document).ready(function() {
     $(this).toggleClass('rotate');
   });
   // create a new todo
+  var clearFormAfterSubmit = function(){
+    $('#todo_item').val('');
+  };
+
   $(".submit_item").click(function() {
     submitForm();
+    clearFormAfterSubmit();
   });
   // prevent form from actually submitting
   $("#new_todo").submit(function(e){
@@ -58,6 +63,8 @@ $(document).ready(function() {
     });
   };// end of submitForm
 
+
+
   // build new li with TODO information
   var appendItem = function(data) {
     var $items = $(".items");
@@ -73,6 +80,9 @@ $(document).ready(function() {
     $li.attr('id','item_' + data.id)
     $li.append($checkbox).append($span).append($button).addClass('todo');
     $items.append($li);
+    $(".delete_todo").click(function() {
+    deleteTodo(this);
+  });
   };//end of appendItem
 
   // remove a todo
