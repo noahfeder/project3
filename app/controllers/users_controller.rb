@@ -2,12 +2,13 @@ class UsersController < ApplicationController
   include UsersHelper
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   def index
-    fetch_local_trends(2380358) #TODO: Add lookup by User instead of woeid
-    fetch_global_trends
-    @todos = Todo.all
+    fetch_global_trends #returns @global_trends
+    @todos = Todo.where(user_id: session[:user_id])
     @user = User.find_by_id(session[:user_id]) || User.new
-    base_uri = "http://content.guardianapis.com/search?q=sortBy=popular"
-    @response = HTTParty.get(base_uri+ "&api-key=" + ENV['GUARDIAN_API_KEY'])["response"]["results"]
+    if !@user.woeid.nil?
+      fetch_local_trends(@user)
+    end
+    fetch_articles
   end
 
   def new
@@ -16,14 +17,17 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-
+    get_location
+    @user.lat = @lat
+    @user.lng = @long
+    @user.woeid = @woeid
     respond_to do |format|
       if @user.save
         session[:user_id] = @user.id
         format.html { redirect_to root_url, notice: 'User was successfully created.' }
         format.json { render :index, status: :created }
       else
-        format.html { render :new }
+        format.html { redirect_to root_url }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
