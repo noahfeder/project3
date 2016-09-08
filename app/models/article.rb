@@ -1,7 +1,0 @@
-
-class Article < ApplicationRecord
-end
-
-
-
-
