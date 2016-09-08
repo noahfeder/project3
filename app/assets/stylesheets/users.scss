@@ -83,6 +83,7 @@ body {
     border-top: none;
     border-image: linear-gradient(transparent 0%, transparent 10%, black 10%, black 90%, transparent 90%, transparent 100%) 1 1 stretch;
   }
+
   .top {
     font-size: 2em;
     font-weight: 600;
@@ -91,7 +92,11 @@ body {
     border: none;
     padding: 0.5 * $minor-padding;
     margin-top: 2 * $minor-padding;
+    &:hover {
+      cursor: pointer;
+    }
   }
+
   .twitter {
     border-left: none;
     .tweets, .top, .tweet {
@@ -123,6 +128,9 @@ body {
           text-align: center;
           margin: 0.5 * $minor-padding;
           font-size: 1.2em;
+          &:hover {
+            cursor: pointer;
+          }
         }
       }
       .local {
