@@ -59,6 +59,10 @@ module UsersHelper
     end
   end
 
+  def guardian_sections
+    @sections = ["artanddesign","australia-news","books","business","culture","education","environment","fashion","film","football","law","lifeandstyle","media","money","music","news","politics","science","society","sport","stage","technology","travel","uk-news","us-news","weather","world"]
+  end
+
   def get_location
       @ip = request.remote_ip
       @ll = Geocoder.coordinates(@ip)
@@ -67,9 +71,8 @@ module UsersHelper
       @woeid = twitter.trends_closest(lat: @lat, long: @long)[0].id # TODO preference storing id on signup
   end
 
-  #TODO use for fetch_articles_by_section
-  def guardian_sections
-    @sections = ["artanddesign","australia-news","books","business","culture","education","environment","fashion","film","football","law","lifeandstyle","media","money","music","news","politics","science","society","sport","stage","technology","travel","uk-news","us-news","weather","world"]
+  def fetch_weather
+    base_uri = "http://api.openweathermap.org/data/2.5/weather?lat=40&lon=-70"
+    @results = HTTParty.get(base_uri+ "&APPID=" + ENV['WEATHER_API_KEY']+ "&units=imperial")
   end
-
 end
