@@ -7,9 +7,10 @@
   </div>
 
   <div class="right">
-  <h5>EL SOL</h5>
+  <h2>EL SOL</h2>
   <% @results.each do |forecast| %>
-  <p class="weather"><% forecast["weather"] %></p>
+  <%= forecast["main"].first["temp"],forecast["clouds"] %>
+
   <% end %>
 
   </div>
