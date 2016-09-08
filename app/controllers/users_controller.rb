@@ -8,14 +8,24 @@ class UsersController < ApplicationController
     # get current user's todo list items
     @todos = Todo.where(user_id: session[:user_id])
 
-    client = "https://api.soundcloud.com/tracks?client_id="
-    @tracks = HTTParty.get(client + ENV['SOUNDCLOUD_CLIENT_ID'])["tracks"]
-    @tracks.each do |track|
-      print track["stream_url"]
-    end
+    # client = "https://api.soundcloud.com/tracks?client_id="
+    # @tracks = JSON.generate(HTTParty.get(client + ENV['SOUNDCLOUD_CLIENT_ID']))#["tracks"]
+    # @tracks = JSON.parse(@tracks)[0]
+    # @tracks.each do |track|
+    #   print track["stream_url"]
+    # end
 
-    # client = SoundCloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
-    # @tracks = client.get('/tracks', :limit => 1, :order => 'hotness')
+    client = SoundCloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
+    @track = client.get('/tracks', :limit => 1, :order => 'hotness')
+    @uri = @track.parsed_response[0]["uri"]
+    embed_info = client.get('/oembed', :url => @uri)
+    @scembed = embed_info.parsed_response["html"]
+    # @scembed.sub!("show_artwork=true","show_artwork=false")
+    @scembed.sub!("visual=true","visual=false")
+    # byebug
+    #@stream_url = @tracks.parsed_response[0]["stream_url"]
+    #@stream_url = client.get(@track.stream_url, :allow_redirects => true)
+
     # @tracks.each do |track|
     #   print track["stream_url"]
     # end

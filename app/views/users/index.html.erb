@@ -3,7 +3,7 @@
 <div class="header">
   <div class="left">
     <div class="soundcloud">
-      <iframe id="sc-widget" src="<%=@tracks['stream_url']%>" width="50%" height="100%" scrolling="no" frameborder="no"></iframe>
+      <%= @scembed.html_safe %>
     </div>
   </div>
   <div class="center">
