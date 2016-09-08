@@ -1,13 +1,12 @@
 class UsersController < ApplicationController
   include UsersHelper
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
   def index
-    fetch_global_trends #returns @global_trends
-    @todos = Todo.where(user_id: session[:user_id])
+    # check for encrypted user cookie to set session id
+    session[:user_id] = cookies.encrypted[:user_id]
     @user = User.find_by_id(session[:user_id]) || User.new
-
-    base_uri = "http://content.guardianapis.com/search?q=sortBy=popular"
-    @response = HTTParty.get(base_uri+ "&api-key=" + ENV['GUARDIAN_API_KEY'])["response"]["results"]
+    fetch_global_trends #returns @global_trends
+    # get current user's todo list items
+    @todos = Todo.where(user_id: session[:user_id])
 
     client = "https://api.soundcloud.com/tracks?client_id="
     @tracks = HTTParty.get(client + ENV['SOUNDCLOUD_CLIENT_ID'])["tracks"]
@@ -32,14 +31,25 @@ class UsersController < ApplicationController
   end
 
   def create
+    # set params from form with strong params
     @user = User.new(user_params)
+    # grab @lat, @long, @woeid from helper function via twitter
     get_location
+    #add additional location information to new User
     @user.lat = @lat
     @user.lng = @long
     @user.woeid = @woeid
     respond_to do |format|
       if @user.save
+        # set an encrypted cookie on the client browser called :user_id
+        # value is the current session's user's id
+        # expiration is 20 years from now
+        # also set session id since that's how we check for active login
         session[:user_id] = @user.id
+        cookies.encrypted[:user_id] = {
+          value: @user.id,
+          expires: 20.years.from_now
+        }
         format.html { redirect_to root_url, notice: 'User was successfully created.' }
         format.json { render :index, status: :created }
       else
@@ -49,29 +59,17 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-    redirect_to "/"
+  def update
+    # TODO add update
   end
 
   def destroy
-    redirect_to "/new"
+    @user = User.find_by_id(params[:id])
+    @user.destroy
+    redirect_to "/signout"
   end
 
   private
-    #get local and global trends for user
-    #TODO Caching
-    #def get_trends
-      #@ip = "8.8.8.8" # TODO change to dynamic, based on request.remote_ip
-      #@ll = Geocoder.coordinates(@ip) # TODO preference storing coordinates on signup
-      #@tl = twitter.trends_closest(lat: @ll[0], long: @ll[1])[0].id # TODO preference storing id on signup
-      #@local_trends = twitter.trends(id = @tl) #local trends, TODO add redis
-      #@global_trends = twitter.trends(id = 1) #global trends, TODO add redis
-    #end
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_user
-    @user = User.find(params[:id])
-  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
