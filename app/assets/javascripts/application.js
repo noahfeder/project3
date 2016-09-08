@@ -15,9 +15,13 @@
 //= require turbolinks
 //= require_tree .
 
-$( document ).ready(function() {
+$(document).ready(function() {
 
-  console.log( "ready!" );
+  console.log("ready!");
+
+  $('.tweets').on('click',function() {
+    $(this).toggleClass('rotate');
+  })
 
   $(".submit_item").click(function() {
     submitForm();
@@ -27,14 +31,21 @@ $( document ).ready(function() {
     e.preventDefault();
   });
 
+  $(".delete_todo").click(function() {
+    deleteTodo(this);
+  })
+
+  $("input[type='checkbox']").on('change',function() {
+    updateTodo(this);
+  })
+
   var submitForm = function(){
-    console.log("click")
     var dataToSend = {
       "user_id" : $("#todo_user_id").val(),
       "item" : $('#todo_item').val(),
       "completed" : 0
-
     };
+
       $.ajax({
       "method" : "POST",
       "url" : "/todos",
@@ -43,33 +54,50 @@ $( document ).ready(function() {
     }).always(function(data){
       appendItem(data);
     });
-  };
+  };// end of submitForm
 
   var appendItem = function(data) {
     var $items = $(".items");
     var $li = $("<li>");
-    $li.text(data.item);
+    var $span = $("<span>");
+    var $checkbox = $('<input type="checkbox">');
+    $checkbox.on('change', function() {
+      updateTodo(this);
+    })
+    var $button = $('<button class="delete_todo">X</button>');
+    $span.text(data.item);
+    $li.attr('id','item_' + data.id)
+    $li.append($checkbox).append($span).append($button).addClass('todo');
     $items.append($li);
+  };//end of appendItem
+
+  var deleteTodo = function(thing) {
+    var parent = $(thing).parent()[0];
+    var id = parent.id.split('_')[1];
+    $.ajax({
+      "method" : "delete",
+      "url" : "/todos/" + id,
+      "datatype" : "json"
+    }).done(function(data) {
+      parent.remove();
+    });
+  }; // end of deleteTodo
+
+  var updateTodo = function(thing) {
+    var completed = thing.checked;
+    var parent = thing.parentElement;
+    var id = parent.id.split('_')[1];
+    var dataToSend = {
+      completed: completed,
+      id: id
+    };
+    $.ajax({
+      "method" : "PATCH",
+      "url" : "/todos/" + id,
+      "datatype" : "json",
+      "data" : dataToSend
+    }).done(function(data) {
+      $(parent).children('span').toggleClass('completed');
+    })
   };
-
 });
-// POTENTIAL SAMPLE AJAX CALL
-// function createTodo() {
-//   e.preventDefault();
-
-//   data = {
-//     "item" : $(whatever).val(),
-//     "completed" : $(whatever).val(),
-//     "user_id" : $(whatever).val()
-//   }
-
-//   $.ajax({
-//     "method" : "POST",
-//     "url"    : "APP_URL/todos/create",
-//     "data"   : data,
-//     "datatype" : "json"
-//   }).always(function() {
-//     $(div).append()
-//   })
-// }
-

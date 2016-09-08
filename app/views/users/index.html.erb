@@ -5,7 +5,8 @@
     <img src="http://placekitten.com/150/100">
   </div>
   <div class="center">
-    <h1>Welcome, Username!</h1>
+    <h1>Welcome, <%= @user.fname %>!</h1>
+    <%= link_to "Signout", "/signout", class: "signout" %>
   </div>
   <div class="right">
   <img src="http://placekitten.com/150/100">
@@ -14,12 +15,10 @@
 
 <div class="content">
   <div class="twitter">
-    <div class="top">
-      Twitter
-    </div>
+    <div class="top">Twitter</div>
     <div class="tweets">
     <%# loop through local and global trends and log each of them %>
-      <div class="tweetset">
+      <div class="tweetset local">
       <h2>Local Trends</h2>
       <% if @local_trends %>
         <% @local_trends.each_with_index do |tweet,index| %>
@@ -33,7 +32,7 @@
         <% end %>
       <% end %>
       </div>
-      <div class="tweetset">
+      <div class="tweetset global">
       <h2>Global Trends</h2>
       <% @global_trends.each_with_index do |tweet,index| %>
           <% if index < 10 %>
@@ -47,37 +46,46 @@
       </div>
     </div>
   </div>
+
+
   <div class="news">
+    <div class="top">News</div>
+    <div class="headlines">
     <% @response.each do |article| %>
-    <p> <%= link_to article["webTitle"], article["webUrl"] %> </p>
-  <% end %>
-  </div>
-  <div class="todo">
-
-  <h2>Objectives</h2>
-
-  <%= form_for Todo.new do |f| %>
-    <div class="form-group">
-     <%= f.text_field :item, placeholder: "what needs doing?" %>
-    </div>
-    <div class="form-group">
-     <%= f.hidden_field :user_id, value: "#{@user.id}" %>
-    </div>
-
-  <% end %>
-
-  <button class="submit_item">submit</button>
-
-  <ul class="items">
-  <% if @todos %>
-    <% @todos.each do |todo| %>
-      <li>
-        <%= todo.item %><br>
-      </li>
+      <p class="headline"> <%= link_to article["webTitle"], article["webUrl"] %> </p>
     <% end %>
-  <% end %>
-  </ul>
+    </div>
+  </div>
 
+  <div class="todos">
+    <div class="top">Objectives</div>
+    <div class="form_and_button">
+      <%= form_for Todo.new do |f| %>
+        <div class="form-group">
+         <%= f.text_field :item, placeholder: "what needs doing?" %>
+        </div>
+        <div class="form-group">
+         <%= f.hidden_field :user_id, value: "#{@user.id}" %>
+        </div>
+      <% end %>
+      <button class="submit_item">submit</button>
+    </div>
+    <ul class="items">
+    <% if @todos %>
+      <% @todos.each do |todo| %>
+        <li id="todo_<%= todo.id %>" class="todo">
+          <% if todo.completed %>
+          <input type="checkbox" checked>
+          <span class="completed"><%= todo.item %></span>
+          <% else %>
+          <input type="checkbox">
+          <span><%= todo.item %></span>
+          <% end %>
+          <button class="delete_todo">X</button>
+        </li>
+      <% end %>
+    <% end %>
+    </ul>
   </div>
 </div>
 

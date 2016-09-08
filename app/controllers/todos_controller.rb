@@ -5,16 +5,21 @@ class TodosController < ApplicationController
   end
 
   def create
-    #   binding.pry
     @todo =  Todo.create({:item =>params[:item],
       :user_id =>params[:user_id], :completed => !params[:completed].to_i.zero?})
     render json: @todo
-    # redirect_to root_path
   end
 
   def destroy
-    todo = Todo.find(params[:id])
-    todo.destroy
+    @todo = Todo.find_by_id(params[:id])
+    @todo.destroy
+    render json: @todo
+  end
+
+  def update
+    @todo = Todo.find_by_id(params[:id])
+    @todo.update(completed: params[:completed])
+    render json: @todo
   end
 
   # private
