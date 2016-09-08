@@ -3,12 +3,12 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 $background-color: #FAFAFA;
-$primary-color: rgba(143,143,143,0.5);
+$primary-color: rgba(60,60,60,0.5);
 $secondary-color: #02C1DC;
 $tertiary-color: #FFAE00;
 $quarternary-color: #FF1300;
-$font-color: #222;
-$font-hover: #666;
+$font-color: #eee;
+$font-hover: #888;
 $minor-padding: 10px;
 
 body {
@@ -18,6 +18,9 @@ body {
   box-sizing: border-box;
   font-family: Helvetica, Arial, sans-serif;
   background-color: $background-color;
+  background-image: image-url("ocean.jpg");
+  background-size: cover;
+  background-position: 0 0;
   color: $font-color;
   // standardizing links across the page
   a {
@@ -35,9 +38,10 @@ body {
   height: 20vh;
   display: flex;
   flex-flow: row nowrap;
-  background-color: $background-color;
+  background-color: transparent;
   box-sizing: border-box;
   margin: 0px $minor-padding;
+  position: relative;
   img {
     width: 100%;
     height: auto;
@@ -63,18 +67,23 @@ body {
   @extend .header;
   height: 70vh;
   & > div {
-    height: 100%;
+    height: 90px;
+    overflow: hidden;
+    position: relative;
+    top: 75%;
+    transition: top 400ms, height 400ms;
   }
   div {
     flex: 1 1 30%;
-    background-color: $background-color;
     padding: $minor-padding;
     padding-top: 3 * $minor-padding;
     box-sizing: border-box;
-    border: 1px solid transparent;
+    //border: 1px solid transparent;
+    border: none;
     border-top: none;
     border-image: linear-gradient(transparent 0%, transparent 10%, black 10%, black 90%, transparent 90%, transparent 100%) 1 1 stretch;
   }
+
   .top {
     font-size: 2em;
     font-weight: 600;
@@ -82,11 +91,15 @@ body {
     text-align: center;
     border: none;
     padding: 0.5 * $minor-padding;
+    margin-top: 2 * $minor-padding;
+    &:hover {
+      cursor: pointer;
+    }
   }
+
   .twitter {
     border-left: none;
     .tweets, .top, .tweet {
-      background-color: transparent;
       padding: 0.5 * $minor-padding;
       border: none;
     }
@@ -95,6 +108,8 @@ body {
       // some funky CSS to make a flippable "card"
       transform-style: preserve-3d;
       transition: 400ms transform;
+      height: 100%;
+      background-color: $primary-color;
       .tweetset {
         border: none;
         width: 100%;
@@ -113,6 +128,9 @@ body {
           text-align: center;
           margin: 0.5 * $minor-padding;
           font-size: 1.2em;
+          &:hover {
+            cursor: pointer;
+          }
         }
       }
       .local {
@@ -122,7 +140,6 @@ body {
   }
 
   .news {
-    border-right: 1px solid black;
     overflow: hidden;
     .headlines {
       // needs fixed height for overflow:scroll to work
@@ -130,7 +147,7 @@ body {
       overflow: scroll;
       border: none;
       padding-top: 0;
-      margin-top: 2 * $minor-padding;
+      background-color: $primary-color;
     }
     .top {
       color: $tertiary-color;
@@ -148,6 +165,7 @@ body {
       flex-flow: row nowrap;
       border: none;
       justify-content: space-between;
+      background-color: $primary-color;
       .new_todo {
         flex: 0 1 70%;
         .form-group {
@@ -172,6 +190,8 @@ body {
       -webkit-margin-start: 0px;
       -webkit-margin-end: 0px;
       -webkit-padding-start: 0px;
+      background-color: $primary-color;
+      height: 100%;
       .todo {
         position: relative;
         &:nth-child(even) {
@@ -209,4 +229,9 @@ body {
 // toggle-able class for tweetset divs
 .rotate {
   transform: rotateY(180deg);
+}
+
+.content > div.expand {
+  height: 100%;
+  top: 0;
 }

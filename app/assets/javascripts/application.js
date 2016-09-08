@@ -24,6 +24,15 @@ $(document).ready(function() {
   $('.tweets').click(function() {
     $(this).toggleClass('rotate');
   });
+
+  $('.content > div > .top').click(function() {
+    $(this).parent().toggleClass('expand');
+  })
+
+  $('a').click(function(e) {
+    e.stopPropagation();
+  })
+
   // create a new todo
   var clearFormAfterSubmit = function(){
     $('#todo_item').val('');
