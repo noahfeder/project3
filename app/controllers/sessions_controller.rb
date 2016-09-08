@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
     email = params[:email]
     password = params[:password]
     user = User.find_by_email(email).try(:authenticate, password)
-    if user.nil?
+    if user.nil? || user == false
       redirect_to root_path
     else
       # set an encrypted cookie on the client browser called :user_id
