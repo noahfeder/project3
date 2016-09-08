@@ -27,7 +27,7 @@ class UsersController < ApplicationController
         format.html { redirect_to root_url, notice: 'User was successfully created.' }
         format.json { render :index, status: :created }
       else
-        format.html { render :new }
+        format.html { redirect_to root_url }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
