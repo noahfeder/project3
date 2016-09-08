@@ -1,24 +1,28 @@
 class TodosController < ApplicationController
 
-  def index
-    @todos = Todo.all
-  end
+### This is now an API! yay!
 
+  # create new todo for the specific user
   def create
-    #   binding.pry
-    @todo =  Todo.create({:item =>params[:item],
-      :user_id =>params[:user_id], :completed => !params[:completed].to_i.zero?})
+    @todo =  Todo.create({
+      :item =>params[:item],
+      :user_id =>params[:user_id],
+      :completed => !params[:completed].to_i.zero?
+    })
     render json: @todo
-    # redirect_to root_path
   end
-
+  # delete a todo
   def destroy
-    todo = Todo.find(params[:id])
-    todo.destroy
+    @todo = Todo.find_by_id(params[:id])
+    @todo.destroy
+    render json: @todo
+  end
+  # patch and update for a todo
+  #TODO add ability to update actual item:string
+  def update
+    @todo = Todo.find_by_id(params[:id])
+    @todo.update(completed: params[:completed])
+    render json: @todo
   end
 
-  # private
-    # def todo_params
-    #   params.require(:todo).permit(:item,:user_id,:completed)
-    # end
 end
