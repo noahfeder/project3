@@ -5,7 +5,10 @@
 $background-color: #FAFAFA;
 $primary-color: rgba(143,143,143,0.5);
 $secondary-color: #02C1DC;
+$tertiary-color: #FFAE00;
+$quarternary-color: #FF1300;
 $font-color: #222;
+$font-hover: #666;
 $minor-padding: 10px;
 
 body {
@@ -16,6 +19,15 @@ body {
   font-family: Helvetica, Arial, sans-serif;
   background-color: $background-color;
   color: $font-color;
+  // standardizing links across the page
+  a {
+    text-decoration: none;
+    color: $font-color;
+    cursor: pointer;
+    &:hover {
+      color: $font-hover;
+    }
+  }
 }
 
 .header {
@@ -43,18 +55,17 @@ body {
   }
   .center {
     flex: 1 0 60%;
-    // background-color: $secondary-color;
-    h1 {
-      text-align: center;
-    }
+    text-align: center;
   }
 }
 
 .content {
   @extend .header;
   height: 70vh;
+  & > div {
+    height: 100%;
+  }
   div {
-
     flex: 1 1 30%;
     background-color: $background-color;
     padding: $minor-padding;
@@ -62,8 +73,15 @@ body {
     box-sizing: border-box;
     border: 1px solid transparent;
     border-top: none;
-    // border-image: image-url('border.png') 1 1 stretch;
     border-image: linear-gradient(transparent 0%, transparent 10%, black 10%, black 90%, transparent 90%, transparent 100%) 1 1 stretch;
+  }
+  .top {
+    font-size: 2em;
+    font-weight: 600;
+    color: $secondary-color;
+    text-align: center;
+    border: none;
+    padding: 0.5 * $minor-padding;
   }
   .twitter {
     border-left: none;
@@ -72,32 +90,108 @@ body {
       padding: 0.5 * $minor-padding;
       border: none;
     }
-    .top {
-      font-size: 2em;
-      font-weight: 600;
-      color: $secondary-color;
-      text-align: center;
-    }
     .tweets {
-      display: flex;
-      flex-flow: row nowrap;
+      position: relative;
+      // some funky CSS to make a flippable "card"
+      transform-style: preserve-3d;
+      transition: 400ms transform;
       .tweetset {
-        flex: 1 0 50%;
-        border: 1px solid black;
+        border: none;
+        width: 100%;
         height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
         padding: 5px;
         word-wrap: break-word;
+        // some funky CSS to make a flippable "card"
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
         h2 {
           color: $secondary-color;
+          text-align: center;
+          margin: 0.5 * $minor-padding;
+          font-size: 1.2em;
         }
+      }
+      .local {
+        transform: rotateY(180deg);
       }
     }
   }
-  .todo {
-    border-right: none;
-  }
+
   .news {
     border-right: 1px solid black;
+    overflow: hidden;
+    .headlines {
+      // needs fixed height for overflow:scroll to work
+      height: 90%;
+      overflow: scroll;
+      border: none;
+      padding-top: 0;
+      margin-top: 2 * $minor-padding;
+    }
+    .top {
+      color: $tertiary-color;
+    }
+  }
+
+  .todos {
+    border-right: none;
+    .top {
+      color: $quarternary-color;
+    }
+    .form_and_button {
+      // added wrapper for better spacing
+      display: flex;
+      flex-flow: row nowrap;
+      border: none;
+      justify-content: space-between;
+      .new_todo {
+        flex: 0 1 70%;
+        .form-group {
+          padding: 0 15px;
+          width: 100%;
+          border: none;
+          input {
+            width: 100%;
+          }
+        }
+      }
+      .submit_item {
+        flex: 1 0 30%;
+      }
+    }
+    .items {
+      //stripping out the default ul and li styling
+      list-style-type: none;
+      padding-top: 10px;
+      -webkit-margin-before: 0;
+      -webkit-margin-after: 0;
+      -webkit-margin-start: 0px;
+      -webkit-margin-end: 0px;
+      -webkit-padding-start: 0px;
+      .todo {
+        position: relative;
+        &:nth-child(even) {
+          background-color: $primary-color;
+        }
+        .completed {
+          text-decoration: line-through;
+        }
+        .delete_todo {
+          float: right;
+        }
+        span {
+          padding: 0px 3px;
+          width: auto;
+          height: auto;
+          position: absolute;
+          left: 20px;
+        }
+      }
+    }
   }
 }
 
@@ -105,4 +199,14 @@ body {
 .footer {
   @extend .header;
   height: 10vh;
+  .signout {
+    text-align: center;
+    margin: 0 auto;
+    padding: calc(5vh - 1em) 0;
+  }
+}
+
+// toggle-able class for tweetset divs
+.rotate {
+  transform: rotateY(180deg);
 }
