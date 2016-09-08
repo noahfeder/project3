@@ -9,11 +9,17 @@ class UsersController < ApplicationController
     base_uri = "http://content.guardianapis.com/search?q=sortBy=popular"
     @response = HTTParty.get(base_uri+ "&api-key=" + ENV['GUARDIAN_API_KEY'])["response"]["results"]
 
-    client = SoundCloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
-    @tracks = client.get('/tracks', :limit => 1, :order => 'hotness')
+    client = "https://api.soundcloud.com/tracks?client_id="
+    @tracks = HTTParty.get(client + ENV['SOUNDCLOUD_CLIENT_ID'])["tracks"]
     @tracks.each do |track|
-      puts track["stream_url"]
+      print track["stream_url"]
     end
+
+    # client = SoundCloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
+    # @tracks = client.get('/tracks', :limit => 1, :order => 'hotness')
+    # @tracks.each do |track|
+    #   print track["stream_url"]
+    # end
 
     if !@user.woeid.nil?
       fetch_local_trends(@user)
