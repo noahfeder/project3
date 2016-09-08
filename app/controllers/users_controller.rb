@@ -8,6 +8,12 @@ class UsersController < ApplicationController
     @user = User.find_by_id(session[:user_id]) || User.new
     base_uri = "http://content.guardianapis.com/search?q=sortBy=popular"
     @response = HTTParty.get(base_uri+ "&api-key=" + ENV['GUARDIAN_API_KEY'])["response"]["results"]
+
+    client = SoundCloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
+    @tracks = client.get('/tracks', :limit => 1, :order => 'hotness')
+    @tracks.each do |track|
+      puts track["stream_url"]
+    end
   end
 
   def new

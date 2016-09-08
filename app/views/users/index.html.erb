@@ -50,6 +50,13 @@
     <p> <%= link_to article["webTitle"], article["webUrl"] %> </p>
   <% end %>
   </div>
+
+  <div class="soundcloud">
+  <% @tracks.each do |track| %>
+    <iframe width=300 height=300 src=<%track["stream_url"]%>>
+    <% end %>
+  </div>
+
   <div class="todo">
 
   <h2>Objectives</h2>
