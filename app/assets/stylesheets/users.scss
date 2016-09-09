@@ -61,6 +61,13 @@ body {
     flex: 1 0 20%;
     box-sizing: border-box;
     padding-left: 10px;
+     .soundcloud {
+      iframe {
+        height: 110px;
+        width: 275px;
+        margin-top: -5px;
+      }
+    }
   }
   .right {
     box-sizing: border-box;
@@ -261,6 +268,10 @@ body {
 .content > div.expand {
   height: 100%;
   top: 0;
+}
+
+.hideplayer {
+visibility: hidden;
 }
 
 @media only screen and (min-width: $desktop) {
