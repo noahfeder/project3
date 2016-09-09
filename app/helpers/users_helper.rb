@@ -33,12 +33,14 @@ module UsersHelper
   def fetch_articles
     response = $redis.get('news')
     if response.nil?
-      base_uri = "http://content.guardianapis.com/search?order-by=newest"
+      base_uri = "http://content.guardianapis.com/search?order-by=newest&type=article"
       response = JSON.generate(HTTParty.get(base_uri + "&api-key=" + ENV['GUARDIAN_API_KEY'])["response"]["results"])
       $redis.set("news", response)
       $redis.expire("news", 5.minutes.to_i)
+
     end
     @response = JSON.load(response)
+    puts @response
   end
 
   # works, but not implemented
@@ -48,7 +50,7 @@ module UsersHelper
       response = $redis.get("news_#{section}")
       if response.nil?
         @section = "&section=" + section.to_s
-        base_uri = "http://content.guardianapis.com/search?order-by=newest"
+        base_uri = "http://content.guardianapis.com/search?order-by=newest&type=article"
         response = JSON.generate(HTTParty.get(base_uri + @section + "&api-key=" + ENV['GUARDIAN_API_KEY'])["response"]["results"])
         $redis.set("news_#{section}", response)
         $redis.expire("news_#{section}", 5.minutes.to_i)
