@@ -7,38 +7,12 @@ class UsersController < ApplicationController
     fetch_global_trends #returns @global_trends
     # get current user's todo list items
     @todos = Todo.where(user_id: session[:user_id])
-
-    # client = "https://api.soundcloud.com/tracks?client_id="
-    # @tracks = JSON.generate(HTTParty.get(client + ENV['SOUNDCLOUD_CLIENT_ID']))#["tracks"]
-    # @tracks = JSON.parse(@tracks)[0]
-    # @tracks.each do |track|
-    #   print track["stream_url"]
-    # end
-
-
-    difgenres = ["Soundtrack","Ambient", "Trap"]
-    randgenre = difgenres.sample
-    client = SoundCloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
-    @track = client.get('/tracks', :limit => 1, :order => 'hotness', :genres => randgenre)
-    @uri = @track.parsed_response[0]["uri"]
-    embed_info = client.get('/oembed', :url => @uri)
-    @scembed = embed_info.parsed_response["html"]
-    @scembed.sub!("show_artwork=true","show_artwork=false")
-    @scembed.sub!("visual=true","visual=false")
-    puts randgenre
-    # byebug
-    #@stream_url = @tracks.parsed_response[0]["stream_url"]
-    #@stream_url = client.get(@track.stream_url, :allow_redirects => true)
-
-    # @tracks.each do |track|
-    #   print track["stream_url"]
-    # end
-
     if !@user.woeid.nil?
       fetch_local_trends(@user)
     end
     fetch_articles
     fetch_weather
+    fetch_track
   end
 
   def new

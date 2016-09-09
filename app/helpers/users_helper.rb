@@ -83,4 +83,17 @@ module UsersHelper
     end
     @results = JSON.load(results)
   end
+
+  def fetch_track
+    difgenres = ["Soundtrack","Ambient", "Trap"]
+    randgenre = difgenres.sample
+    client = SoundCloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
+    @track = client.get('/tracks', :limit => 1, :order => 'hotness', :genres => randgenre)
+    @uri = @track.parsed_response[0]["uri"]
+    embed_info = client.get('/oembed', :url => @uri)
+    @scembed = embed_info.parsed_response["html"]
+    @scembed.sub!("show_artwork=true","show_artwork=false")
+    @scembed.sub!("visual=true","visual=false")
+  end
+
 end
