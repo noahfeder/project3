@@ -14,7 +14,10 @@
   </div>
 
   <div class="right">
-    <p> Temp <%= @results["main"]["temp"]%></p>
+    <img alt="<%= @results["weather"][0]["main"] %>" src="http://openweathermap.org/img/w/<%= @results["weather"][0]["icon"] %>.png">
+    <div>
+      <%= @results["main"]["temp"].to_i %>&#8457;
+    </div>
   </div>
 </div>
 
@@ -97,7 +100,9 @@
 <div class="footer">
     <%# moved signout link to footer instead of application.html.erb%>
     <%= link_to "Signout", "/signout", class: "signout" %>
-    <%= link_to "Delete Account", "/users/#{@user.id}", method: "delete" %>
+    <%= form_for @user, method: :delete  do |f| %>
+      <%= submit_tag("Delete Account") %>
+    <% end %>
 </div>
 
 </div>
