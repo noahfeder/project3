@@ -90,9 +90,10 @@ module UsersHelper
     difgenres = ["Soundtrack","Ambient", "Trap"]
     randgenre = difgenres.sample
     client = SoundCloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
-    @track = client.get('/tracks', :limit => 1, :order => 'hotness', :genres => randgenre)
-    @uri = @track.parsed_response[0]["uri"]
-    embed_info = client.get('/oembed', :url => @uri)
+    track = client.get('/tracks', :limit => 1, :order => 'hotness', :genres => randgenre)
+    uri = track.parsed_response[0]["uri"]
+    embed_info = client.get('/oembed', :url => uri)
+    @song_title = embed_info.parsed_response['title']
     @scembed = embed_info.parsed_response["html"]
     @scembed.sub!("show_artwork=true","show_artwork=false")
     @scembed.sub!("visual=true","visual=false")
