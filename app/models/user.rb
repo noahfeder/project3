@@ -15,11 +15,20 @@
 #
 
 class User < ApplicationRecord
+  # MAGIC BCRYPT MAGIC
   has_secure_password
+  # destroy cascades to user's todos
   has_many :todos, :dependent => :destroy
+
+  # Lookup location by lat and lng
+  reverse_geocoded_by :lat, :lng, address: :location
+  after_validation :reverse_geocode
+
+  # Simple validations
   validates :password, length: {minimum: 2,
     message: "Password too short"}
   validates :email, uniqueness: true
+  validates :fname, presence: true
   validates :email, format: {with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
     message: "Invalid Email"}
 end
