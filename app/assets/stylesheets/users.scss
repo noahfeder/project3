@@ -10,17 +10,21 @@ $quarternary-color: #FF1300;
 $font-color: #eee;
 $font-hover: #888;
 $minor-padding: 10px;
+$desktop: 1200px;
 
 body {
   margin: 0 auto;
   padding: 0;
   border: 0;
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
   font-family: Helvetica, Arial, sans-serif;
   background-color: $background-color;
   background-image: image-url("ocean.jpg");
   background-size: cover;
   background-position: 0 0;
+  background-repeat: no-repeat;
   color: $font-color;
   // standardizing links across the page
   a {
@@ -31,6 +35,11 @@ body {
       color: $font-hover;
     }
   }
+}
+
+.container {
+  @extend body;
+  background: none;
 }
 
 .header {
@@ -56,6 +65,15 @@ body {
     flex: 1 0 20%;
     text-align: right;
     padding-right: 10px;
+    position: relative;
+    div {
+      font-size: 2.5em;
+      margin-top: -20px;
+    }
+    img {
+      width: 70px;
+      height: auto;
+    }
   }
   .center {
     flex: 1 0 60%;
@@ -78,10 +96,6 @@ body {
     padding: $minor-padding;
     padding-top: 3 * $minor-padding;
     box-sizing: border-box;
-    //border: 1px solid transparent;
-    border: none;
-    border-top: none;
-    border-image: linear-gradient(transparent 0%, transparent 10%, black 10%, black 90%, transparent 90%, transparent 100%) 1 1 stretch;
   }
 
   .top {
@@ -89,7 +103,6 @@ body {
     font-weight: 600;
     color: $secondary-color;
     text-align: center;
-    border: none;
     padding: 0.5 * $minor-padding;
     margin-top: 2 * $minor-padding;
     &:hover {
@@ -98,10 +111,8 @@ body {
   }
 
   .twitter {
-    border-left: none;
     .tweets, .top, .tweet {
       padding: 0.5 * $minor-padding;
-      border: none;
     }
     .tweets {
       position: relative;
@@ -111,7 +122,6 @@ body {
       height: 100%;
       background-color: $primary-color;
       .tweetset {
-        border: none;
         width: 100%;
         height: 100%;
         position: absolute;
@@ -134,7 +144,7 @@ body {
         }
       }
       .local {
-        transform: rotateY(180deg);
+        transform: rotateY(180deg) translateZ(1px);
       }
     }
   }
@@ -145,7 +155,6 @@ body {
       // needs fixed height for overflow:scroll to work
       height: 90%;
       overflow: scroll;
-      border: none;
       padding-top: 0;
       background-color: $primary-color;
     }
@@ -155,7 +164,6 @@ body {
   }
 
   .todos {
-    border-right: none;
     .top {
       color: $quarternary-color;
     }
@@ -163,7 +171,6 @@ body {
       // added wrapper for better spacing
       display: flex;
       flex-flow: row nowrap;
-      border: none;
       justify-content: space-between;
       background-color: $primary-color;
       .new_todo {
@@ -171,7 +178,6 @@ body {
         .form-group {
           padding: 0 15px;
           width: 100%;
-          border: none;
           input {
             width: 100%;
           }
@@ -184,7 +190,7 @@ body {
     .items {
       //stripping out the default ul and li styling
       list-style-type: none;
-      padding-top: 10px;
+      padding-top: $minor-padding;
       -webkit-margin-before: 0;
       -webkit-margin-after: 0;
       -webkit-margin-start: 0px;
@@ -219,7 +225,7 @@ body {
 .footer {
   @extend .header;
   height: 10vh;
-  .signout {
+  a {
     text-align: center;
     margin: 0 auto;
     padding: calc(5vh - 1em) 0;
@@ -234,4 +240,10 @@ body {
 .content > div.expand {
   height: 100%;
   top: 0;
+}
+
+@media only screen and (min-width: $desktop) {
+  .container {
+    max-width: $desktop;
+  }
 }
