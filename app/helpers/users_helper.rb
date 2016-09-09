@@ -72,7 +72,15 @@ module UsersHelper
   end
 
   def fetch_weather
-    base_uri = "http://api.openweathermap.org/data/2.5/weather?lat=40&lon=-70"
-    @results = HTTParty.get(base_uri+ "&APPID=" + ENV['WEATHER_API_KEY']+ "&units=imperial")
+    lat = @user.lat.to_i || 40
+    lng = @user.lng.to_i || -70
+    results = $redis.get("weather_#{lat}_#{lng}")
+    if results.nil?
+      base_uri = "http://api.openweathermap.org/data/2.5/weather?lat=#{lat}&lon=#{lng}&units=imperial"
+      results = JSON.generate(HTTParty.get(base_uri+ "&APPID=" + ENV['WEATHER_API_KEY']))
+      $redis.set("weather_#{lat}_#{lng}",results)
+      $redis.expire("weather_#{lat}_#{lng}",2.hours.to_i)
+    end
+    @results = JSON.load(results)
   end
 end
