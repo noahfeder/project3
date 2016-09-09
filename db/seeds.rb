@@ -1,3 +1,5 @@
+User.destroy_all
+
 woeids = ["1154726","23424856","2295402","2391279","2418046"]
 
 10.times do
@@ -7,8 +9,8 @@ woeids = ["1154726","23424856","2295402","2391279","2418046"]
       lname: Faker::Name.last_name,
       email: Faker::Internet.email,
       password: "test",
-      lat: Faker::Address.latitude,
-      lng: Faker::Address.longitude,
+      lat: Faker::Address.latitude.to_f,
+      lng: Faker::Address.longitude.to_f,
       woeid: woeids.sample
     })
 

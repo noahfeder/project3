@@ -7,9 +7,14 @@
   </div>
 
   <div class="right">
-    <img alt="<%= @results["weather"][0]["main"] %>" src="http://openweathermap.org/img/w/<%= @results["weather"][0]["icon"] %>.png">
-    <div>
-      <%= @results["main"]["temp"].to_i %>&#8457;
+    <div class="weather">
+      <div class="temp">
+        <%= @results["main"]["temp"].to_i %>&#8457;
+      </div>
+      <img alt="<%= @results["weather"][0]["main"] %>" src="http://openweathermap.org/img/w/<%= @results["weather"][0]["icon"] %>.png">
+    </div>
+    <div class="location">
+      <%= @user.location.split(', ')[1] %>
     </div>
   </div>
 </div>
