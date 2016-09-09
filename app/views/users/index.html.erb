@@ -6,7 +6,9 @@
     <p class="musicicon">music</p>
     </div>
     <div class="soundcloud">
-      <%= @scembed.html_safe %>
+      <% if @scembed %>
+        <%= @scembed.html_safe %>
+      <% end %>
     </div>
   </div>
   <div class="center">
@@ -21,7 +23,9 @@
       <img alt="<%= @results["weather"][0]["main"] %>" src="http://openweathermap.org/img/w/<%= @results["weather"][0]["icon"] %>.png">
     </div>
     <div class="location">
+    <% if @user.location %>
       <%= @user.location.split(', ')[1] %>
+    <% end %>
     </div>
   </div>
 </div>
