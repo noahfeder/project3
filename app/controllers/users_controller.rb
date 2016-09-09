@@ -15,13 +15,17 @@ class UsersController < ApplicationController
     #   print track["stream_url"]
     # end
 
+
+    difgenres = ["Soundtrack","Ambient", "Trap"]
+    randgenre = difgenres.sample
     client = SoundCloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
-    @track = client.get('/tracks', :limit => 1, :order => 'hotness')
+    @track = client.get('/tracks', :limit => 1, :order => 'hotness', :genres => randgenre)
     @uri = @track.parsed_response[0]["uri"]
     embed_info = client.get('/oembed', :url => @uri)
     @scembed = embed_info.parsed_response["html"]
-    # @scembed.sub!("show_artwork=true","show_artwork=false")
+    @scembed.sub!("show_artwork=true","show_artwork=false")
     @scembed.sub!("visual=true","visual=false")
+    puts randgenre
     # byebug
     #@stream_url = @tracks.parsed_response[0]["stream_url"]
     #@stream_url = client.get(@track.stream_url, :allow_redirects => true)

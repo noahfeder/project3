@@ -27,11 +27,15 @@ $(document).ready(function() {
 
   $('.content > div > .top').click(function() {
     $(this).parent().toggleClass('expand');
-  })
+  });
 
   $('a').click(function(e) {
     e.stopPropagation();
-  })
+  });
+
+  $('.musicicon').click(function(){
+    $('iframe').toggleClass('hideplayer');
+  });
 
   // create a new todo
   var clearFormAfterSubmit = function(){
