@@ -1,0 +1,9 @@
+{
+  "name": "TodayDash",
+  "description": "Start your day with TodayDash",
+  "version": "0.3.6",
+  "chrome_url_overrides": {
+    "newtab": "redirect.html"
+  },
+  "manifest_version": 2
+}
