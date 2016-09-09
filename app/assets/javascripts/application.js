@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require_tree .
 
+
 // TODO move this into a users.js file
 // (if we add other features loaded out of this order)
 $(document).ready(function() {
@@ -26,11 +27,15 @@ $(document).ready(function() {
 
   $('.content > div > .top').click(function() {
     $(this).parent().toggleClass('expand');
-  })
+  });
 
   $('a').click(function(e) {
     e.stopPropagation();
-  })
+  });
+
+  $('.musicicon').click(function(){
+    $('iframe').toggleClass('hideplayer');
+  });
 
   // create a new todo
   var clearFormAfterSubmit = function(){
