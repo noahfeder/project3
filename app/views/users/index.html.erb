@@ -2,12 +2,10 @@
 
 <div class="header">
   <div class="left">
-    <div>
-    <p class="musicicon">music</p>
-    </div>
     <div class="soundcloud">
       <% if @scembed %>
         <%= @scembed.html_safe %>
+        <div class="song_title"><%= @song_title %></div>
       <% end %>
     </div>
   </div>
@@ -17,10 +15,7 @@
 
   <div class="right">
     <div class="weather">
-      <div class="temp">
         <%= @results["main"]["temp"].to_i %>&#8457;
-      </div>
-      <img alt="<%= @results["weather"][0]["main"] %>" src="http://openweathermap.org/img/w/<%= @results["weather"][0]["icon"] %>.png">
     </div>
     <div class="location">
     <% if @user.location %>
