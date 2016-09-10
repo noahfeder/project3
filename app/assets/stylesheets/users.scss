@@ -100,7 +100,42 @@ body {
   .center {
     flex: 1 0 60%;
     text-align: center;
-    font-family: $header-font, sans-serif;
+    font-family: $header-font, serif;
+    width: 100%;
+    .welcome {
+      margin: 0 auto;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+      input {
+        -webkit-appearance: none;
+        background-color: transparent;
+        border: none;
+        padding: 0 8px;
+        font-size: 2rem;
+        color: $font-color;
+        font-family: $header-font, serif;
+        text-align: left;
+        &:focus {
+          outline: none;
+        }
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      h1 {
+        -webkit-margin-before: 0;
+        -webkit-margin-after: 0;
+        vertical-align: text-bottom;
+        line-height: 2em;
+        text-align: right;
+        display: table;
+      }
+      & > * {
+        flex: 0 1;
+        height: 2em;
+      }
+    }
   }
 }
 
@@ -262,6 +297,11 @@ body {
 
 .hideplayer {
 visibility: hidden;
+}
+
+.temp {
+  font-family: $header-font;
+  font-size: 2em;
 }
 
 @media only screen and (min-width: $desktop) {

@@ -26,8 +26,8 @@ class User < ApplicationRecord
 
   # Simple validations
   validates :password, length: {minimum: 2,
-    message: "Password too short"}
-  validates :email, uniqueness: true
+    message: "Password too short"}, on: :create
+  validates :email, uniqueness: true, on: :create
   validates :fname, presence: true
   validates :email, format: {with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
     message: "Invalid Email"}

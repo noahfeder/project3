@@ -40,7 +40,9 @@ class UsersController < ApplicationController
   end
 
   def update
-    # TODO add update
+    @user = User.find_by_id(params[:id])
+    @user.update(fname: params[:fname])
+    render json: {user: @user}
   end
 
   def destroy

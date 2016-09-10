@@ -182,11 +182,36 @@ $(document).ready(function() {
   };
 
   function appendName(name) {
-    $('.center h1').text("Welcome, " + name + "!")
+    $('.welcome h1').text("Welcome, ")
+    updateInput(name);
+  }
+
+  $('#edit_name').keyup(function(e) {
+    var name = $(this).val();
+    var user_id = $('#todo_user_id').val();
+    if (e.which === 13) {
+      $.ajax({
+        'method' : 'PATCH',
+        'url' : '/users/' + user_id,
+        'data' : {id: user_id, fname: name}
+      });
+    } else if ((e.which >= 48 && e.which <= 57) || (e.which >= 65 && e.which <= 90) || e.which === 8) {
+      updateInput(name);
+    }
+  });
+
+  function updateInput(name) {
+    var $input = $('#edit_name')
+    $input.val(name);
+    var $span = $('<span class="temp">');
+    $span.text(name).appendTo('body');
+    var w = document.querySelector('.temp').getBoundingClientRect().width;
+    $span.remove();
+    $input[0].style.maxWidth = String(w + 16) + 'px';
+    $input[0].width = String(w + 16) + 'px';
   }
 
   function appendData(data) {
-    console.log(data);
     appendTweets(data.twitter);
     appendArticles(data.articles);
     appendSound(data.sound);
