@@ -96,7 +96,7 @@ module UsersHelper
       if embed_info.headers["status"] == "200 OK"
         @sound.update(embed_info: JSON.generate(embed_info))
       end
-      embed_info = JSON.generate(embed_info)
+      embed_info = @sound.embed_info
       $redis.set("sound_#{@genre}", embed_info)
       $redis.expire("sound_#{@genre}", 8.hours.to_i)
     end
