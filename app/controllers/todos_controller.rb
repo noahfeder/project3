@@ -1,7 +1,11 @@
 class TodosController < ApplicationController
-
+  include UsersHelper
+  before_action :get_user, only: [:index]
 ### This is now an API! yay!
-
+  def index
+    @todos = Todo.where(user_id: session[:user_id])
+    render json: @todos
+  end
   # create new todo for the specific user
   def create
     @todo =  Todo.create({

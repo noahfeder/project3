@@ -1,18 +1,9 @@
 class UsersController < ApplicationController
   include UsersHelper
+  before_action :get_user, only: [:index]
+
   def index
-    # check for encrypted user cookie to set session id
-    session[:user_id] = cookies.encrypted[:user_id]
-    @user = User.find_by_id(session[:user_id]) || User.new
-    fetch_global_trends #returns @global_trends
-    # get current user's todo list items
-    @todos = Todo.where(user_id: session[:user_id])
-    if !@user.woeid.nil?
-      fetch_local_trends(@user)
-    end
-    fetch_articles
     fetch_weather
-    fetch_track
   end
 
   def new

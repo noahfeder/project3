@@ -2,69 +2,35 @@
 
 <div class="header">
   <div class="left">
-    <div class="soundcloud">
-      <% if @scembed %>
-        <%= @scembed.html_safe %>
-        <div class="song_title"><%= @song_title %></div>
-      <% end %>
-    </div>
+    <div class="soundcloud"></div>
   </div>
   <div class="center">
     <h1>Welcome, <%= @user.fname %>!</h1>
   </div>
 
   <div class="right">
-    <div class="weather">
-        <%= @results["main"]["temp"].to_i %>&#8457;
-    </div>
-    <div class="location">
-    <% if @user.location %>
-      <%= @user.location.split(', ')[1] %>
-    <% end %>
-    </div>
+    <div class="weather"></div>
+    <div class="location"></div>
   </div>
 </div>
 
 <div class="content">
+
   <div class="twitter">
     <div class="top">Trends</div>
     <div class="tweets">
-    <%# loop through local and global trends and log each of them %>
-    <%# each tweetset contains a header and div.tweet %>
-    <%# local is rotated 180deg on Y, back of the "card" %>
       <div class="tweetset local">
-      <h2>Local Trends</h2>
-      <% if @local_trends %>
-        <% @local_trends.each_with_index do |tweet,index| %>
-            <% if index < 10 %>
-              <div class="tweet">
-                <%= link_to tweet["name"], tweet["url"] %>
-              </div>
-            <% end %>
-        <% end %>
-      <% end %>
+        <h2>Local Trends</h2>
       </div>
       <div class="tweetset global">
-      <h2>Global Trends</h2>
-      <% @global_trends.each_with_index do |tweet,index| %>
-          <% if index < 10 %>
-            <div class="tweet">
-              <%= link_to tweet["name"], tweet["url"], target: "_blank" %>
-            </div>
-          <% end %>
-      <% end %>
+        <h2>Global Trends</h2>
       </div>
     </div>
   </div>
 
   <div class="news">
     <div class="top">News</div>
-    <%# added wrapper div for good scrolling action %>
-    <div class="headlines">
-    <% @response.each do |article| %>
-      <p class="headline"> <%= link_to article["webTitle"], article["webUrl"], target: "_blank" %> </p>
-    <% end %>
-    </div>
+    <div class="headlines"></div>
   </div>
 
   <div class="todos">
@@ -82,28 +48,12 @@
       <button class="submit_item">submit</button>
     </div>
     <ul class="items">
-    <% if @todos %>
-      <% @todos.each do |todo| %>
-        <li id="todo_<%= todo.id %>" class="todo">
-        <%# conditional check for completed items on initial pageload %>
-        <% if todo.completed %>
-          <input type="checkbox" checked>
-          <span class="completed"><%= todo.item %></span>
-        <% else %>
-          <input type="checkbox">
-          <span><%= todo.item %></span>
-        <% end %>
-          <button class="delete_todo">X</button>
-        </li>
-      <% end %>
-    <% end %>
     </ul>
   </div>
 </div>
 
 <div class="footer">
-    <%# moved signout link to footer instead of application.html.erb%>
-    <%= link_to "Signout", "/signout", class: "signout" %>
+  <a href="/signout" class="signout">Signout</a>
     <%= form_for @user, method: :delete  do |f| %>
       <%= submit_tag("Delete Account") %>
     <% end %>

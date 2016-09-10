@@ -20,6 +20,45 @@
 // (if we add other features loaded out of this order)
 $(document).ready(function() {
 
+  var build = function(tag,href,text,className,where) {
+    var $tag = $('<' + tag + '>');
+    $tag.addClass(className)
+        .html('<a target="_blank" href="' + href + '">' + text + '</a>')
+        .appendTo(where);
+  }
+
+  function appendTweets(data) {
+    data.local.forEach(function(el,index) {
+      if (index < 10) {
+        build('div',el.url,el.name,'tweet','.tweetset.local');
+      }
+    });
+    data.global.forEach(function(el,index) {
+      if (index < 10) {
+        build('div',el.url,el.name,'tweet','.tweetset.global');
+      }
+    })
+  }
+
+  function appendWeather(data) {
+    $('.weather').html(Math.round(data.main.temp) + '&#8457;');
+    $('.location').html(data.name);
+  }
+
+  function appendSound(data) {
+    var $sc = $('.soundcloud');
+    var $div = $('<div class="song_title">');
+    $div.text(data.song_title)
+    $sc.html(data.scembed)
+      .append($div);
+  }
+
+  function appendArticles(data) {
+    data.forEach(function(el) {
+      build('p', el.webUrl, el.webTitle, 'headline', '.headlines')
+    })
+  }
+
   // rotate to show other side of tweetset "card"
   $('.tweets').click(function() {
     $(this).toggleClass('rotate');
@@ -32,10 +71,6 @@ $(document).ready(function() {
   $('a').click(function(e) {
     e.stopPropagation();
   });
-
-  // $('.musicicon').click(function(){
-  //   $('iframe').toggleClass('hideplayer');
-  // });
 
   // create a new todo
   var clearFormAfterSubmit = function(){
@@ -94,9 +129,9 @@ $(document).ready(function() {
     $li.attr('id','item_' + data.id)
     $li.append($checkbox).append($span).append($button).addClass('todo');
     $items.append($li);
-    $(".delete_todo").click(function() {
-    deleteTodo(this);
-  });
+    $button.click(function() {
+      deleteTodo(this);
+    });
   };//end of appendItem
 
   // remove a todo
@@ -132,5 +167,17 @@ $(document).ready(function() {
       $(parent).children('span').toggleClass('completed');
     });
   }; // end of updateTodo
+
+
+  function appendTodos(data) {
+    data.forEach(appendItem);
+  };
+  //TODO NEED TO PASS USER ID FROM CLIENT INSTEAD OF VIA SERVER
+  // But it works for now!!!
+  $.getJSON('/tweets').done(appendTweets);
+  $.getJSON('/articles').done(appendArticles);
+  $.getJSON('/todos').done(appendTodos);
+  $.getJSON('/sound').done(appendSound);
+  $.getJSON('/weather').done(appendWeather);
 
 }); // end of $(document).ready
