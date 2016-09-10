@@ -14,15 +14,7 @@
   </div>
 
   <div class="right">
-    <div class="weather">
-      <div class="temp">
-        <%= @results["main"]["temp"].to_i %>&#8457;
-      </div>
-      <img alt="<%= @results["weather"][0]["main"] %>" src="http://openweathermap.org/img/w/<%= @results["weather"][0]["icon"] %>.png">
-    </div>
-    <div class="location">
-      <%= @user.location.split(', ')[1] %>
-    </div>
+    <p> Temp <%= @results["main"]["temp"]%></p>
   </div>
 </div>
 
@@ -105,9 +97,7 @@
 <div class="footer">
     <%# moved signout link to footer instead of application.html.erb%>
     <%= link_to "Signout", "/signout", class: "signout" %>
-    <%= form_for @user, method: :delete  do |f| %>
-      <%= submit_tag("Delete Account") %>
-    <% end %>
+    <%= link_to "Delete Account", "/users/#{@user.id}", method: "delete" %>
 </div>
 
 </div>
