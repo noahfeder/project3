@@ -2,11 +2,11 @@
 
 <div class="header">
   <div class="left">
-    <div>
-    <p class="musicicon">music</p>
-    </div>
     <div class="soundcloud">
-      <%= @scembed.html_safe %>
+      <% if @scembed %>
+        <%= @scembed.html_safe %>
+        <div class="song_title"><%= @song_title %></div>
+      <% end %>
     </div>
   </div>
   <div class="center">
@@ -15,6 +15,14 @@
 
   <div class="right">
     <p> Temp <%= @results["main"]["temp"]%></p>
+    <div class="weather">
+        <%= @results["main"]["temp"].to_i %>&#8457;
+    </div>
+    <div class="location">
+    <% if @user.location %>
+      <%= @user.location.split(', ')[1] %>
+    <% end %>
+    </div>
   </div>
 </div>
 

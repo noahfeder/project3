@@ -33,10 +33,10 @@ module UsersHelper
   def fetch_articles
     response = $redis.get('news')
     if response.nil?
-      base_uri = "http://content.guardianapis.com/search?order-by=newest"
+      base_uri = "http://content.guardianapis.com/search?order-by=newest&type=article"
       response = JSON.generate(HTTParty.get(base_uri + "&api-key=" + ENV['GUARDIAN_API_KEY'])["response"]["results"])
       $redis.set("news", response)
-      $redis.expire("news", 5.minutes.to_i)
+      $redis.expire("news", 1.hours.to_i)
     end
     @response = JSON.load(response)
   end
@@ -48,10 +48,10 @@ module UsersHelper
       response = $redis.get("news_#{section}")
       if response.nil?
         @section = "&section=" + section.to_s
-        base_uri = "http://content.guardianapis.com/search?order-by=newest"
+        base_uri = "http://content.guardianapis.com/search?order-by=newest&type=article"
         response = JSON.generate(HTTParty.get(base_uri + @section + "&api-key=" + ENV['GUARDIAN_API_KEY'])["response"]["results"])
         $redis.set("news_#{section}", response)
-        $redis.expire("news_#{section}", 5.minutes.to_i)
+        $redis.expire("news_#{section}", 1.hours.to_i)
       end
       @response = JSON.load(response)
     else
@@ -83,4 +83,30 @@ module UsersHelper
     end
     @results = JSON.load(results)
   end
+
+  def fetch_track
+    @genre = genre
+    embed_info = $redis.get("sound_#{@genre}")
+    if embed_info.nil?
+      client = SoundCloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
+      track = client.get('/tracks', :limit => 1, :order => 'hotness', :genres => @genre)
+      uri = track.parsed_response[0]["uri"]
+      embed_info = client.get('/oembed', :url => uri)
+      @sound = Sound.find_by_genre(@genre) || Sound.create(genre: @genre)
+      if embed_info.headers["status"] == "200 OK"
+        @sound.update(embed_info: JSON.generate(embed_info))
+      end
+      embed_info = JSON.generate(embed_info)
+      $redis.set("sound_#{@genre}", embed_info)
+      $redis.expire("sound_#{@genre}", 8.hours.to_i)
+    end
+    @embed_info = JSON.load(embed_info)
+    @song_title = @embed_info["title"]
+    @scembed = @embed_info["html"].sub!("show_artwork=true","show_artwork=false").sub!("visual=true","visual=false")
+  end
+
+  def genre
+    ["Soundtrack","Ambient", "Trap"].sample
+  end
+
 end

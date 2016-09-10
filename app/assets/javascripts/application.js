@@ -33,9 +33,9 @@ $(document).ready(function() {
     e.stopPropagation();
   });
 
-  $('.musicicon').click(function(){
-    $('iframe').toggleClass('hideplayer');
-  });
+  // $('.musicicon').click(function(){
+  //   $('iframe').toggleClass('hideplayer');
+  // });
 
   // create a new todo
   var clearFormAfterSubmit = function(){
