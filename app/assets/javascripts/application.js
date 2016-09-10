@@ -194,9 +194,7 @@ $(document).ready(function() {
         'method' : 'PATCH',
         'url' : '/users/' + user_id,
         'data' : {id: user_id, fname: name}
-      }).done(function(data) {
-        console.log(data);
-      })
+      });
     } else if ((e.which >= 48 && e.which <= 57) || (e.which >= 65 && e.which <= 90) || e.which === 8) {
       updateInput(name);
     }
