@@ -1,62 +1,49 @@
 <div class="container">
-
-<div class="header">
-  <div class="left">
-    <div class="soundcloud"></div>
-  </div>
-  <div class="center">
-    <h1>Welcome, <%= @user.fname %>!</h1>
-  </div>
-
-  <div class="right">
-    <div class="weather"></div>
-    <div class="location"></div>
-  </div>
-</div>
-
-<div class="content">
-
-  <div class="twitter">
-    <div class="top">Trends</div>
-    <div class="tweets">
-      <div class="tweetset local">
-        <h2>Local Trends</h2>
-      </div>
-      <div class="tweetset global">
-        <h2>Global Trends</h2>
-      </div>
+  <div class="header">
+    <div class="left">
+      <div class="soundcloud"></div>
+    </div>
+    <div class="center">
+    <%# TODO GET USER SOMEHOW ELSE %>
+      <h1>Welcome, <%= @user.fname %>!</h1>
+    </div>
+    <div class="right">
+      <div class="weather"></div>
+      <div class="location"></div>
     </div>
   </div>
 
-  <div class="news">
-    <div class="top">News</div>
-    <div class="headlines"></div>
-  </div>
-
-  <div class="todos">
-    <div class="top">Todo</div>
-    <%# added wrapper div for flexbox power %>
-    <div class="form_and_button">
-      <%= form_for Todo.new do |f| %>
-        <div class="form-group">
-         <%= f.text_field :item, placeholder: "what needs doing?" %>
+  <div class="content">
+    <div class="twitter">
+      <div class="top">Trends</div>
+      <div class="tweets">
+        <div class="tweetset local">
+          <h2>Local Trends</h2>
         </div>
-        <div class="form-group">
-         <%= f.hidden_field :user_id, value: "#{@user.id}" %>
+        <div class="tweetset global">
+          <h2>Global Trends</h2>
         </div>
-      <% end %>
-      <button class="submit_item">submit</button>
+      </div>
     </div>
-    <ul class="items">
-    </ul>
+    <div class="news">
+      <div class="top">News</div>
+      <div class="headlines"></div>
+    </div>
+    <div class="todos">
+      <div class="top">Todo</div>
+      <div class="form_and_button">
+        <input placeholder="what needs doing?" type="text" name="todo[item]" id="todo_item">
+        <input value="55" type="hidden" name="todo[user_id]" id="todo_user_id">
+        <button class="submit_item">submit</button>
+      </div>
+      <ul class="items"></ul>
+    </div>
   </div>
-</div>
-
-<div class="footer">
-  <a href="/signout" class="signout">Signout</a>
+  <div class="footer">
+    <a href="/signout" class="signout">Signout</a>
+    <%# TODO TURN INTO AJAX CALL %>
     <%= form_for @user, method: :delete  do |f| %>
       <%= submit_tag("Delete Account") %>
     <% end %>
-</div>
-
+  </div>
 </div>
