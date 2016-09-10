@@ -1,4 +1,10 @@
 module UsersHelper
+
+  def get_user
+    session[:user_id] = cookies.encrypted[:user_id]
+    @user = User.find_by_id(session[:user_id]) || User.new
+  end
+
   # cache trends for id=1 (Global) using redis
   # caches trends for 15 minutes (twitter updates every 5)
   def fetch_global_trends
@@ -86,9 +92,9 @@ module UsersHelper
 
   def fetch_track
     @genre = genre
+    client = Soundcloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
     embed_info = $redis.get("sound_#{@genre}")
     if embed_info.nil?
-      client = SoundCloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
       track = client.get('/tracks', :limit => 1, :order => 'hotness', :genres => @genre)
       uri = track.parsed_response[0]["uri"]
       embed_info = client.get('/oembed', :url => uri)
@@ -96,13 +102,13 @@ module UsersHelper
       if embed_info.headers["status"] == "200 OK"
         @sound.update(embed_info: JSON.generate(embed_info))
       end
-      embed_info = JSON.generate(embed_info)
+      embed_info = @sound.embed_info
       $redis.set("sound_#{@genre}", embed_info)
       $redis.expire("sound_#{@genre}", 8.hours.to_i)
     end
     @embed_info = JSON.load(embed_info)
     @song_title = @embed_info["title"]
-    @scembed = @embed_info["html"].sub!("show_artwork=true","show_artwork=false").sub!("visual=true","visual=false")
+    @scembed = @embed_info["html"].sub!("show_artwork=true","show_artwork=false").sub!("visual=true","visual=false").html_safe
   end
 
   def genre
