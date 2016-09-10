@@ -92,6 +92,7 @@ module UsersHelper
 
   def fetch_track
     @genre = genre
+    client = Soundcloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
     embed_info = $redis.get("sound_#{@genre}")
     if embed_info.nil?
       track = client.get('/tracks', :limit => 1, :order => 'hotness', :genres => @genre)

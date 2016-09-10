@@ -172,12 +172,32 @@ $(document).ready(function() {
   function appendTodos(data) {
     data.forEach(appendItem);
   };
+
+  function appendForm(id) {
+    $('.edit_user').attr({
+      id: 'edit_user_' + id,
+      action: '/users/' + id
+    });
+    $('#todo_user_id').val(id);
+  };
+
+  function appendName(name) {
+    $('.center h1').text("Welcome, " + name + "!")
+  }
+
+  function appendData(data) {
+    console.log(data);
+    appendTweets(data.twitter);
+    appendArticles(data.articles);
+    appendSound(data.sound);
+    appendWeather(data.weather);
+    appendTodos(data.todos);
+    appendName(data.name);
+    appendForm(data.id);
+  }
+
   //TODO NEED TO PASS USER ID FROM CLIENT INSTEAD OF VIA SERVER
   // But it works for now!!!
-  $.getJSON('/tweets').done(appendTweets);
-  $.getJSON('/articles').done(appendArticles);
-  $.getJSON('/todos').done(appendTodos);
-  $.getJSON('/sound').done(appendSound);
-  $.getJSON('/weather').done(appendWeather);
+  $.getJSON('/startup').done(appendData);
 
 }); // end of $(document).ready
