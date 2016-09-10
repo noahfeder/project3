@@ -214,6 +214,23 @@ $(document).ready(function() {
     $('a').click(function(e) {
       e.stopPropagation();
     });
+
+    $('#edit_name').keyup(function(e) {
+       var name = $(this).val();
+       var user_id = $('#todo_user_id').val();
+       var that = this;
+       if (e.which === 13) {
+         $.ajax({
+           'method' : 'PATCH',
+           'url' : '/users/' + user_id,
+           'data' : {id: user_id, fname: name}
+         }).done(function() {
+            that.blur();
+         });
+       } else if ((e.which >= 48 && e.which <= 57) || (e.which >= 65 && e.which <= 90) || e.which === 8) {
+         updateInput(name);
+       }
+     });
   }
   //TODO NEED TO PASS USER ID FROM CLIENT INSTEAD OF VIA SERVER
   // But it works for now!!!
