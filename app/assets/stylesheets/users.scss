@@ -196,18 +196,12 @@ body {
       flex-flow: row nowrap;
       justify-content: space-between;
       background-color: $primary-color;
-      .new_todo {
+      #todo_item {
         flex: 0 1 70%;
-        .form-group {
-          padding: 0 15px;
-          width: 100%;
-          input {
-            width: 100%;
-          }
-        }
+        margin: 0px 15px;
       }
       .submit_item {
-        flex: 1 0 30%;
+        flex: 1 0 20%;
       }
     }
     .items {
