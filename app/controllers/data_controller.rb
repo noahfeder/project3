@@ -12,7 +12,6 @@ class DataController < ApplicationController
     fetch_articles
     fetch_track
     fetch_weather
-    @todos = Todo.where(user_id: @user.id)
     @data = {
       twitter: {
         global: @global_trends,
@@ -24,7 +23,7 @@ class DataController < ApplicationController
         scembed: @scembed
       },
       weather: @results,
-      todos: @todos,
+      todos: @user.todos,
       name: @user.fname,
       id: @user.id
     }
