@@ -33,29 +33,27 @@ class User < ApplicationRecord
     message: "Invalid Email"}
 
   def self.find_or_create_by_uid(auth)
-    @user = User.find_by_uid(auth.id)
+    @user = User.find_by_uid(auth["id"])
     puts @user
     if @user.nil?
       @user = User.new
-      @user.uid = auth.id
-      @user.email = auth.email
-      @user.fname = auth.given_name
-      @user.lname = auth.family_name
+      @user.uid = auth["id"]
+      @user.email = auth["email"]
+      @user.fname = auth["given_name"]
+      @user.lname = auth["family_name"]
       @user.password = "password"
-      get_location
-      @user.lat = @lat
-      @user.lng = @long
-      @user.woeid = @woeid
+      @user.lat = auth["latitude"].to_f
+      @user.lng = auth["longitude"].to_f
+      twitter = Twitter::REST::Client.new do |config|
+        config.consumer_key        = ENV["TWITTER_CONSUMER_KEY"]
+        config.consumer_secret     = ENV["TWITTER_CONSUMER_SECRET"]
+        config.access_token        = ENV["TWITTER_ACCESS_TOKEN"]
+        config.access_token_secret = ENV["TWITTER_ACCESS_SECRET"]
+      end
+      @user.woeid = twitter.trends_closest(lat: @user.lat, long: @user.lng)[0].id
       @user.save
     end
-  end
-
-  def get_location
-      @ip = request.remote_ip
-      @ll = Geocoder.coordinates(@ip)
-      @lat = @ll[0]
-      @long = @ll[1]
-      @woeid = twitter.trends_closest(lat: @lat, long: @long)[0].id # TODO preference storing id on signup
+    @user
   end
 
 end

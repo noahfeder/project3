@@ -1,7 +1,11 @@
 module UsersHelper
 
   def get_user
-    !params[:chrome] ? get_web_user : get_chrome_user
+    if params["data"]["chrome"] == "true"
+      get_chrome_user(params["data"]["auth"])
+    else
+      get_web_user
+    end
   end
 
   def get_web_user

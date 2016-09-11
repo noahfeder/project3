@@ -1,13 +1,8 @@
 class DataController < ApplicationController
   include UsersHelper
-  before_action :get_user, except: [:sound, :articles, :index]
+  before_action :get_user, except: [:sound, :articles]
 
   def index
-    if params[:chrome]
-      get_chrome_user(params[:auth])
-    else
-      get_web_user
-    end
     fetch_global_trends
     if @user.woeid.nil?
       @local_trends = []

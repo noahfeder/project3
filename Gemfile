@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+gem 'rack-cors', :require => 'rack/cors'
 gem 'better_errors'
 gem 'pry'
 gem 'annotate'
