@@ -565,18 +565,18 @@ visibility: hidden;
 .soc-twitter {
     background-color: #4da7de;
 }
-.soc-twitter:before {
+.soc-twitter::before {
     content:'a';
 }
 .soc-facebook {
     background-color: #3e5b98;
 }
-.soc-facebook:before {
+.soc-facebook::before {
     content:'b';
 }
 .soc-email1 {
     background-color: #578AD6;
 }
-.soc-email1:before {
+.soc-email1::before {
     content:'<';
 }
