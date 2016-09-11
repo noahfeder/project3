@@ -1,7 +1,8 @@
 module UsersHelper
 
   def get_user
-    if params["data"]["chrome"] == "true"
+    byebug
+    if params["data"] && params["data"]["chrome"] == "true"
       get_chrome_user(params["data"]["auth"])
     else
       get_web_user
