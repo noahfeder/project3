@@ -100,7 +100,6 @@ $(document).ready(function() {
   };// end of appendName function
 
   function appendPics (pics){
-    debugger;
     $('body').css('background-image', 'url('+ pics + ')');
   };
 
