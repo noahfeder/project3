@@ -17,6 +17,63 @@ $main-font: 'Quattrocento Sans';
 $header-font: 'Vollkorn';
 
 
+.login_container {
+  height: 100px;
+  width: 260px;
+  margin-top: calc(30vh - 50px);
+  margin-left: calc(50vw - 130px);
+}
+
+.login {
+  font-family: $main-font;
+  font-size: 20px;
+  text-align: left;
+}
+
+.action {
+
+}
+
+.user_email_input {
+  float:right;
+}
+
+.login_password_input {
+  float:right;
+}
+
+.new_user_container {
+  height: 100px;
+  width: 260px;
+  margin-top: 20vh;
+  margin-left: calc(50vw - 130px);
+}
+
+
+.new_user{
+  font-family: $main-font;
+  font-size: 20px;
+  text-align: left;
+
+}
+
+.fname_input {
+  float:right;
+}
+
+.lname_input {
+  float:right;
+}
+
+.email_input {
+  float:right;
+}
+
+.password_input {
+  float:right;
+}
+
+
 body {
   margin: 0 auto;
   padding: 0;
@@ -300,7 +357,8 @@ body {
   position: relative;
   .settings {
     width: calc(100% - 20vh);
-    height: 100%;
+    height: 8vh;
+    margin-top:2vh;
     position: absolute;
     left: 10vh;
     background-color: $primary-color;
@@ -308,7 +366,7 @@ body {
     flex-flow: row nowrap;
     justify-content: space-around;
     align-items: flex-start;
-    padding-top: 3vh;
+    padding-top: 2vh;
     transition: 400ms transform linear;
     transform-origin: bottom center;
     transform: rotateX(-90deg);
