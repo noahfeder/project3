@@ -34,6 +34,7 @@ class User < ApplicationRecord
 
   def self.find_or_create_by_uid(auth)
     @user = User.find_by_uid(auth.id)
+    puts @user
     if @user.nil?
       @user = User.new
       @user.uid = auth.id

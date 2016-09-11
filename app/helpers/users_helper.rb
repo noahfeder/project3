@@ -10,6 +10,7 @@ module UsersHelper
   end
 
   def get_chrome_user(auth)
+    puts auth
     @user = User.find_or_create_by_uid(auth)
   end
 

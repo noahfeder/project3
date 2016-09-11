@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   include UsersHelper
   protect_from_forgery with: :exception, except: :destroy
-  before_action :get_user, only: [:index]
+  before_action :get_web_user, only: [:index]
 
   def index
   end
