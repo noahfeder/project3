@@ -248,6 +248,10 @@ $(document).ready(function() {
          updateInput(name);
        }
      });
+
+    $('.footer img:first-child').click(function(event) {
+        $('.soc').toggleClass('showSoc');
+    });
   }
 
   //TODO NEED TO PASS USER ID FROM CLIENT INSTEAD OF VIA SERVER
