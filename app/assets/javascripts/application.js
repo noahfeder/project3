@@ -99,6 +99,10 @@ $(document).ready(function() {
     updateInput(name);
   };// end of appendName function
 
+  function appendPics (pics){
+    $('body').css('background-image', 'url('+ pics + ')');
+  };
+
   function appendData(data) {
     appendTweets(data.twitter);
     appendArticles(data.articles);
@@ -107,6 +111,7 @@ $(document).ready(function() {
     appendTodos(data.todos);
     appendName(data.name);
     appendForm(data.id);
+    appendPics(data.pics);
   };
 
   // create a new todo
@@ -245,9 +250,6 @@ $(document).ready(function() {
      });
   }
 
-  $.getJSON('/pics').done(function(pics){
-    $('body').css('background-image', 'url('+ pics.pics + ')');
-  });
   //TODO NEED TO PASS USER ID FROM CLIENT INSTEAD OF VIA SERVER
   // But it works for now!!!
   $.getJSON('/startup').done(function(data) {
