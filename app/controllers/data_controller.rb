@@ -3,6 +3,7 @@ class DataController < ApplicationController
   before_action :get_user, except: [:sound, :articles]
 
   def index
+    fetch_pics
     fetch_global_trends
     if @user.woeid.nil?
       @local_trends = []

@@ -47,6 +47,13 @@ module UsersHelper
     @response = JSON.load(response)
   end
 
+  def fetch_pics
+    base = "http://api.unsplash.com/photos/random?orientation=landscape&collection=113"
+    response = HTTParty.get(base + "&client_id=" + ENV['UNSPLASH_APP_ID'])
+    puts response
+  end
+
+
   # works, but not implemented
   # could probably be moved to articles_controller and be hit via AJAX?
   def fetch_section(section)
