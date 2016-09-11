@@ -1,6 +1,7 @@
 class TodosController < ApplicationController
   include UsersHelper
   before_action :get_user, only: [:index]
+  protect_from_forgery with: :exception, only: [:new]
 ### This is now an API! yay!
   def index
     @todos = Todo.where(user_id: session[:user_id])

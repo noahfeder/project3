@@ -1,8 +1,21 @@
 module UsersHelper
 
   def get_user
+    if params["data"]["chrome"] == "true"
+      get_chrome_user(params["data"]["auth"])
+    else
+      get_web_user
+    end
+  end
+
+  def get_web_user
     session[:user_id] = cookies.encrypted[:user_id]
     @user = User.find_by_id(session[:user_id]) || User.new
+  end
+
+  def get_chrome_user(auth)
+    puts auth
+    @user = User.find_or_create_by_uid(auth)
   end
 
   # cache trends for id=1 (Global) using redis
@@ -103,7 +116,7 @@ module UsersHelper
     embed_info = $redis.get("sound_#{@genre}")
     if embed_info.nil?
       track = client.get('/tracks', :limit => 1, :order => 'hotness', :genres => @genre)
-      uri = track.parsed_response["uri"]
+      uri = track.parsed_response[0]["uri"]
       embed_info = client.get('/oembed', :url => uri)
       @sound = Sound.find_by_genre(@genre) || Sound.create(genre: @genre)
       if embed_info.headers["status"] == "200 OK"
