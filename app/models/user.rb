@@ -40,6 +40,7 @@ class User < ApplicationRecord
       @user.email = auth.email
       @user.fname = auth.given_name
       @user.lname = auth.family_name
+      @user.password = "password"
       get_location
       @user.lat = @lat
       @user.lng = @long
