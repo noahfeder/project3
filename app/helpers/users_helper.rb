@@ -1,7 +1,7 @@
 module UsersHelper
 
   def get_user
-    params[:auth].nil? ? get_web_user : get_chrome_user
+    !params[:chrome] ? get_web_user : get_chrome_user
   end
 
   def get_web_user
