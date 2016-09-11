@@ -122,7 +122,6 @@ module UsersHelper
     embed_info = $redis.get("sound_#{@genre}")
     if embed_info.nil?
       track = JSON.load(JSON.generate(client.get('/tracks', :limit => 1, :order => 'hotness', :genres => @genre)))
-      byebug
       uri = track[0]["uri"]
       embed_info = client.get('/oembed', :url => uri)
       @sound = Sound.find_by_genre(@genre) || Sound.create(genre: @genre)
