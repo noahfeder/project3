@@ -4,7 +4,10 @@
       <div class="soundcloud"></div>
     </div>
     <div class="center">
-      <h1></h1>
+      <div class="welcome">
+        <h1></h1>
+        <input id="edit_name">
+      </div>
     </div>
     <div class="right">
       <div class="weather"></div>
@@ -38,11 +41,15 @@
     </div>
   </div>
   <div class="footer">
-    <a href="/signout" class="signout">Signout</a>
-    <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
-      <input name="utf8" type="hidden" value="✓">
-      <input type="hidden" name="_method" value="delete">
-      <input type="submit" name="commit" value="Delete Account" data-disable-with="Delete Account">
-    </form>
+    <img src="/logo.png">
+    <img src="/settings.png" class="settings_button">
+    <div class="settings">
+      <div><a href="/signout" class="signout"><input type="submit" value="Signout"></input></a></div>
+      <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
+        <input name="utf8" type="hidden" value="✓">
+        <input type="hidden" name="_method" value="delete">
+        <a><input type="submit" name="commit" value="Delete Account" data-disable-with="Delete Account"></a>
+      </form>
+    </div>
   </div>
 </div>
