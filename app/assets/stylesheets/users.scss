@@ -488,11 +488,11 @@ visibility: hidden;
 
 @font-face {
     font-family: 'si';
-    src: url('font_buttons/socicon.eot');
-    src: url('font_buttons/socicon.eot?#iefix') format('embedded-opentype'),
-         url('font_buttons/socicon.woff') format('woff'),
-         url('font_buttons/socicon.ttf') format('truetype'),
-         url('font_buttons/socicon.svg#icomoonregular') format('svg');
+    src: url('/font_buttons/socicon.eot');
+    src: url('/font_buttons/socicon.eot?#iefix') format('embedded-opentype'),
+         url('/font_buttons/socicon.woff') format('woff'),
+         url('/font_buttons/socicon.ttf') format('truetype'),
+         url('/font_buttons/socicon.svg#icomoonregular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
