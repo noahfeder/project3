@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "/weather" => "data#weather", as: :weather
   get "/sound" => "data#sound", as: :sound
   get "/startup" => "data#index", as: :startup
+  get "/pics" => "data#pics", as: :pics
 
   resources :users
   resources :todos, only: [:index,:create,:destroy,:update]
