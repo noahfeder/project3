@@ -15,9 +15,6 @@
 //= require turbolinks
 //= require_tree .
 
-
-// TODO move this into a users.js file
-// (if we add other features loaded out of this order)
 $(document).ready(function() {
 
   function build(tag,href,text,className,where) {
@@ -214,6 +211,10 @@ $(document).ready(function() {
     $('a').click(function(e) {
       e.stopPropagation();
     });
+
+    $('.settings_button').click(function() {
+      $('.settings').toggleClass('flipup');
+    })
 
     $('#edit_name').keyup(function(e) {
        var name = $(this).val();

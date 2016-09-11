@@ -164,8 +164,10 @@ body {
     text-align: center;
     padding: 0.5 * $minor-padding;
     margin-top: 2 * $minor-padding;
+    transition: text-shadow 400ms;
     &:hover {
       cursor: pointer;
+      text-shadow: 0px 0px 9px #222;
     }
   }
 
@@ -278,10 +280,47 @@ body {
 .footer {
   @extend .header;
   height: 10vh;
-  a {
-    text-align: center;
-    margin: 0 auto;
-    padding: calc(5vh - 1em) 0;
+  position: relative;
+  .settings {
+    width: calc(100% - 20vh);
+    height: 100%;
+    position: absolute;
+    left: 10vh;
+    background-color: $primary-color;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: center;
+    transition: 400ms transform linear;
+    transform-origin: bottom center;
+    transform: rotateX(-90deg);
+    input {
+      background: none;
+      border: none;
+      font-family: inherit;
+      color: inherit;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    & > * {
+      flex: 1 0 50%;
+      text-align: center;
+      height: 1rem;
+    }
+  }
+  img {
+    position: absolute;
+    height: 6vh;
+    width: auto;
+    margin: 2vh;
+    &.settings_button {
+      right: 0;
+      transition: transform 800ms;
+      cursor: pointer;
+      &:hover {
+        transform: rotate(360deg);
+      }
+    }
   }
 }
 
@@ -302,6 +341,10 @@ visibility: hidden;
 .temp {
   font-family: $header-font;
   font-size: 2em;
+}
+
+.settings.flipup {
+  transform: rotateX(0deg);
 }
 
 @media only screen and (min-width: $desktop) {
