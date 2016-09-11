@@ -3,6 +3,7 @@ class DataController < ApplicationController
   before_action :get_user, except: [:sound, :articles]
 
   def index
+    fetch_pics
     fetch_global_trends
     if @user.woeid.nil?
       @local_trends = []
@@ -28,6 +29,12 @@ class DataController < ApplicationController
       id: @user.id
     }
     render json: @data
+  end
+
+  def pics
+    fetch_pics
+      @pic = {pics: @backImg}
+    render json: @pic
   end
 
 

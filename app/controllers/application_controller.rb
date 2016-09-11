@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-# Gives access to the twitter API by calling twitter#method
-# e.g.: @trends = twitter.trends(id = 1) returns all global trends
+  # Gives access to the twitter API by calling twitter#method
+  # e.g.: @trends = twitter.trends(id = 1) returns all global trends
   def twitter
     twitter = Twitter::REST::Client.new do |config|
       config.consumer_key        = ENV["TWITTER_CONSUMER_KEY"]
@@ -12,7 +12,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def soundcloud
-
+  def unsplash
+    Unsplash.configure do |config|
+      config.application_id           = ENV['UNSPLASH_APP_ID']
+      config.application_secret       = ENV['UNSPLASH_CLIENT_SECRET']
+    end
   end
+
 end

@@ -83,7 +83,6 @@ body {
   box-sizing: border-box;
   font-family: $main-font, sans-serif;
   background-color: $background-color;
-  background-image: image-url("ocean.jpg");
   background-size: cover;
   background-position: 0 0;
   background-repeat: no-repeat;
@@ -358,7 +357,7 @@ body {
   .settings {
     width: calc(100% - 20vh);
     height: 8vh;
-    margin-top:2vh;
+    margin-top: 2vh;
     position: absolute;
     left: 10vh;
     background-color: $primary-color;

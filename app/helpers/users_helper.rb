@@ -1,8 +1,22 @@
 module UsersHelper
 
   def get_user
+    byebug
+    if params["data"] && params["data"]["chrome"] == "true"
+      get_chrome_user(params["data"]["auth"])
+    else
+      get_web_user
+    end
+  end
+
+  def get_web_user
     session[:user_id] = cookies.encrypted[:user_id]
     @user = User.find_by_id(session[:user_id]) || User.new
+  end
+
+  def get_chrome_user(auth)
+    puts auth
+    @user = User.find_or_create_by_uid(auth)
   end
 
   # cache trends for id=1 (Global) using redis
@@ -46,6 +60,13 @@ module UsersHelper
     end
     @response = JSON.load(response)
   end
+
+  def fetch_pics
+    base = "http://api.unsplash.com/photos/random?orientation=landscape&featured=true&query=architecture"
+    response = HTTParty.get(base + "&client_id=" + ENV['UNSPLASH_APP_ID'])
+    @backImg = response['urls']['raw']
+  end
+
 
   # works, but not implemented
   # could probably be moved to articles_controller and be hit via AJAX?
