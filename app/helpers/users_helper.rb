@@ -48,9 +48,9 @@ module UsersHelper
   end
 
   def fetch_pics
-    base = "http://api.unsplash.com/photos/random?orientation=landscape&collection=113"
+    base = "http://api.unsplash.com/photos/random?orientation=landscape&featured=true&query=architecture"
     response = HTTParty.get(base + "&client_id=" + ENV['UNSPLASH_APP_ID'])
-    puts response
+    @backImg = response['urls']['raw']
   end
 
 
@@ -103,7 +103,7 @@ module UsersHelper
     embed_info = $redis.get("sound_#{@genre}")
     if embed_info.nil?
       track = client.get('/tracks', :limit => 1, :order => 'hotness', :genres => @genre)
-      uri = track.parsed_response[0]["uri"]
+      uri = track.parsed_response["uri"]
       embed_info = client.get('/oembed', :url => uri)
       @sound = Sound.find_by_genre(@genre) || Sound.create(genre: @genre)
       if embed_info.headers["status"] == "200 OK"

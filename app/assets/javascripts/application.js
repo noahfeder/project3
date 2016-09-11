@@ -109,8 +109,6 @@ $(document).ready(function() {
     appendForm(data.id);
   };
 
-
-
   // create a new todo
   function clearFormAfterSubmit(){
     $('#todo_item').val('');
@@ -181,7 +179,7 @@ $(document).ready(function() {
     $span.remove();
     $input[0].style.maxWidth = String(w + 16) + 'px';
     $input[0].width = String(w + 16) + 'px';
-  }
+  };
 
   // add all the event listeners!
   function listenToMe () {
@@ -190,7 +188,7 @@ $(document).ready(function() {
       if (e.which === 13) {
         submitForm();
       }
-    })
+    });
 
     // prevent form from actually submitting
     $("#new_todo").submit(function(e){
@@ -227,7 +225,7 @@ $(document).ready(function() {
 
     $('.settings_button').click(function() {
       $('.settings').toggleClass('flipup');
-    })
+    });
 
     $('#edit_name').keyup(function(e) {
        var name = $(this).val();
@@ -246,6 +244,10 @@ $(document).ready(function() {
        }
      });
   }
+
+  $.getJSON('/pics').done(function(pics){
+    $('body').css('background-image', 'url('+ pics.pics + ')');
+  });
   //TODO NEED TO PASS USER ID FROM CLIENT INSTEAD OF VIA SERVER
   // But it works for now!!!
   $.getJSON('/startup').done(function(data) {
@@ -254,3 +256,5 @@ $(document).ready(function() {
   });
 
 }); // end of $(document).ready
+
+
