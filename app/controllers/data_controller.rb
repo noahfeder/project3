@@ -26,15 +26,15 @@ class DataController < ApplicationController
       weather: @results,
       todos: @user.todos,
       name: @user.fname,
-      id: @user.id
+      id: @user.id,
+      pics: @img
     }
     render json: @data
   end
 
   def pics
     fetch_pics
-      @pic = {pics: @backImg}
-    render json: @pic
+    render json: @img
   end
 
 
