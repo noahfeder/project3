@@ -17,6 +17,63 @@ $main-font: 'Quattrocento Sans';
 $header-font: 'Vollkorn';
 
 
+.login_container {
+  height: 100px;
+  width: 260px;
+  margin-top: calc(30vh - 50px);
+  margin-left: calc(50vw - 130px);
+}
+
+.login {
+  font-family: $main-font;
+  font-size: 20px;
+  text-align: left;
+}
+
+.action {
+
+}
+
+.user_email_input {
+  float:right;
+}
+
+.login_password_input {
+  float:right;
+}
+
+.new_user_container {
+  height: 100px;
+  width: 260px;
+  margin-top: 20vh;
+  margin-left: calc(50vw - 130px);
+}
+
+
+.new_user{
+  font-family: $main-font;
+  font-size: 20px;
+  text-align: left;
+
+}
+
+.fname_input {
+  float:right;
+}
+
+.lname_input {
+  float:right;
+}
+
+.email_input {
+  float:right;
+}
+
+.password_input {
+  float:right;
+}
+
+
 body {
   margin: 0 auto;
   padding: 0;
