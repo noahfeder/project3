@@ -121,11 +121,11 @@ module UsersHelper
     client = Soundcloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
     embed_info = $redis.get("sound_#{@genre}")
     if embed_info.nil?
-      track = client.get('/tracks', :limit => 1, :order => 'hotness', :genres => @genre)
-      uri = track.parsed_response[0]["uri"]
+      track = JSON.load(JSON.generate(client.get('/tracks', :limit => 1, :order => 'hotness', :genres => @genre)))
+      uri = track[0]["uri"]
       embed_info = client.get('/oembed', :url => uri)
       @sound = Sound.find_by_genre(@genre) || Sound.create(genre: @genre)
-      if embed_info.headers["status"] == "200 OK"
+      if uri
         @sound.update(embed_info: JSON.generate(embed_info))
       end
       embed_info = @sound.embed_info
