@@ -11,6 +11,8 @@ $font-color: #eee;
 $font-hover: #888;
 $minor-padding: 10px;
 $desktop: 1200px;
+$mobile: 550px;
+
 $main-font: 'Quattrocento Sans';
 $header-font: 'Vollkorn';
 
@@ -64,16 +66,29 @@ body {
     padding-left: 10px;
      .soundcloud {
       margin-top: 2 * $minor-padding;
+      display: flex;
       iframe {
+        flex: 0 0 20px;
         height: 20px;
         width: 20px;
       }
-      .song_title {
+      .title_wrapper {
+        padding-left: 3px;
+        flex: 0 1 100%;
+        width: calc(100% - 10px);
+        height: 18px;
+        line-height: 18px;
         font-size: 12px;
-        width: 100%;
-        height: 20px;
-        display: inline;
-        vertical-align: super;
+        overflow: hidden;
+        text-overflow: clip;
+        .song_title {
+          display: inline-block;
+          transition: margin-left 6s linear;
+          margin-left: 0;
+          &:hover {
+            margin-left: -350px;
+          }
+        }
       }
     }
   }
@@ -115,6 +130,7 @@ body {
         font-size: 2rem;
         color: $font-color;
         font-family: $header-font, serif;
+        font-weight: bold;
         text-align: left;
         &:focus {
           outline: none;
@@ -351,4 +367,28 @@ visibility: hidden;
   .container {
     max-width: $desktop;
   }
+}
+
+@media only screen and (max-width: $mobile) {
+  .container {
+    .header {
+      height: 15vh;
+    }
+    .content {
+      height: 75vh;
+      flex-direction: column;
+      justify-content: center;
+      & > div {
+        flex: 0 1 65px;
+        width: 100%;
+        top: 0;
+        transition: flex-basis 400ms;
+        padding-top: $minor-padding * 0.5;
+        &.expand {
+          flex-basis: calc(100% - 150px);
+        }
+      }
+    }
+  }
+
 }

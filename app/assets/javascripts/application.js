@@ -44,10 +44,12 @@ $(document).ready(function() {
 
   function appendSound(data) {
     var $sc = $('.soundcloud');
+    var $wrapper = $('<div class="title_wrapper">');
     var $div = $('<div class="song_title">');
+    $div.appendTo($wrapper);
     $div.text(data.song_title);
     $sc.html(data.scembed)
-      .append($div);
+      .append($wrapper);
   }// end of appendSound function
 
   function appendArticles(data) {
@@ -205,7 +207,18 @@ $(document).ready(function() {
     });
 
     $('.content > div > .top').click(function() {
-      $(this).parent().toggleClass('expand');
+      if (document.body.getBoundingClientRect().width < 550) {
+        if ($(this).parent().hasClass('expand')) {
+          $('.expand').removeClass('expand');
+        } else {
+          $('.expand').removeClass('expand');
+          window.setTimeout(function(that) {
+            $(that).parent().addClass('expand');
+          },10,this)
+        }
+      } else {
+        $(this).parent().toggleClass('expand');
+      }
     });
 
     $('a').click(function(e) {
