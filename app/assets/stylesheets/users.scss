@@ -16,18 +16,27 @@ $mobile: 550px;
 $main-font: 'Quattrocento Sans';
 $header-font: 'Vollkorn';
 
+.welcome {
+  text-shadow: 0px 0px 8px #222;
+}
+
+#edit_name {
+  text-shadow: 0px 0px 8px #222;
+}
 
 .login_container {
   height: 100px;
   width: 260px;
   margin-top: calc(30vh - 50px);
   margin-left: calc(50vw - 130px);
+  text-shadow: 0px 0px 15px #222;
 }
 
 .login {
   font-family: $main-font;
   font-size: 20px;
   text-align: left;
+  text-shadow: 0px 0px 15px #222;
 }
 
 .action {
@@ -47,6 +56,7 @@ $header-font: 'Vollkorn';
   width: 260px;
   margin-top: 20vh;
   margin-left: calc(50vw - 130px);
+  text-shadow: 0px 0px 15px #222;
 }
 
 
@@ -54,6 +64,7 @@ $header-font: 'Vollkorn';
   font-family: $main-font;
   font-size: 20px;
   text-align: left;
+  text-shadow: 0px 0px 15px #222;
 
 }
 
@@ -75,11 +86,11 @@ $header-font: 'Vollkorn';
 
 
 body {
+  height: 100vh;
   margin: 0 auto;
   padding: 0;
   border: 0;
   width: 100%;
-  height: 100%;
   box-sizing: border-box;
   font-family: $main-font, sans-serif;
   background-color: $background-color;
