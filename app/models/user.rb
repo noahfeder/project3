@@ -31,4 +31,29 @@ class User < ApplicationRecord
   validates :fname, presence: true
   validates :email, format: {with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
     message: "Invalid Email"}
+
+  def self.find_or_create_by_uid(auth)
+    @user = User.find_by_uid(auth.id)
+    if @user.nil?
+      @user = User.new
+      @user.uid = auth.id
+      @user.email = auth.email
+      @user.fname = auth.given_name
+      @user.lname = auth.family_name
+      get_location
+      @user.lat = @lat
+      @user.lng = @long
+      @user.woeid = @woeid
+      @user.save
+    end
+  end
+
+  def get_location
+      @ip = request.remote_ip
+      @ll = Geocoder.coordinates(@ip)
+      @lat = @ll[0]
+      @long = @ll[1]
+      @woeid = twitter.trends_closest(lat: @lat, long: @long)[0].id # TODO preference storing id on signup
+  end
+
 end

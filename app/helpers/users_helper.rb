@@ -1,8 +1,16 @@
 module UsersHelper
 
   def get_user
+    params[:uid].nil? ? get_web_user : get_chrome_user
+  end
+
+  def get_web_user
     session[:user_id] = cookies.encrypted[:user_id]
     @user = User.find_by_id(session[:user_id]) || User.new
+  end
+
+  def get_chrome_user(auth)
+    @user = User.find_or_create_by_uid(auth)
   end
 
   # cache trends for id=1 (Global) using redis
