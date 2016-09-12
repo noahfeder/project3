@@ -308,7 +308,8 @@ body {
     .headlines {
       // needs fixed height for overflow:scroll to work
       height: 90%;
-      overflow: scroll;
+      overflow-y: auto;
+      overflow-x: hidden;
       padding-top: 0;
       background-color: $primary-color;
     }

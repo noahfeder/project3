@@ -1,24 +1,76 @@
-# README
+# TodayDash
+#### A new tab replacement
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+User Stories:
+> User can see their whole day at once.
 
-Things you may want to cover:
+> User can access the information easily and immediately.
 
-* Ruby version
+> User can update their information easily.
 
-* System dependencies
+> Todo list can be added to, updated, and deleted.
 
-* Configuration
+> User can get location specific information.
 
-* Database creation
+Minimum Viable Product:
+>* Customizable page
+>* Utilize news and music APIs
+>* User can log-in and log-out
 
-* Database initialization
+Stretch goals:
+>*    Add weather
+>*    Twitter trends (global/local)
+>*    Creating mobile/tablet views
+>*    Share links
+>*    Unsplash Images
 
-* How to run the test suite
+Platinum goals:
+>*    add local storage
+>*    Add chrome tab replacement extension
+>*    use  Hammer.js
+>*    Data storage
 
-* Services (job queues, cache servers, search engines, etc.)
+Goals NOT accomplished:
+*    Hammer.js: Focus moved much more to desktop
+*    Tablet view: Only 1 breakpoint, but works well on tablet resolutions
 
-* Deployment instructions
+Gems Used:
+* rack-cors
+  * Manage CORS
+* better_errors
+* pry
+* annotate
+  * add schema to models
+* dotenv-rails
+  * manage ENV in development
+* redis-rails
+  * Cacheing! Used often
+* redis-namespace
+  * Simplify redis requests
+* httparty
+  * Make requests!
+* geocoder
+  * Get location by IP
+* twitter
+  * Package requests to Twitter API
+* faker
+  * Generate seed data
+* binding_of_caller
+  * Introduce working terminal into better_errors
+* soundcloud
+  * Package requests to Soundcloud API
+* unsplash
+  * Package requests to Unsplash API
+* bcrypt
+  * Encrypt passwords
+* rails_real_favicon
+  * Generate favicons and meta tags
 
-* ...
+Planning:
+>![](http://imgur.com/ZD7Mb4V.jpg)
+
+Wireframing and ERB:
+>![](http://i.imgur.com/09Jk3gn.jpg)
+
+Wireframe:
+>![](http://i.imgur.com/ITJK65g.png)
