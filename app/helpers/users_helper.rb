@@ -119,7 +119,7 @@ module UsersHelper
   def fetch_track
     @genre = genre
     embed_info = $redis.get("sound_#{@genre}")
-    unless embed_info.nil?
+    if embed_info.nil?
       # Major help from http://stackoverflow.com/questions/35688367/access-soundcloud-charts-with-api
       req = "https://api-v2.soundcloud.com/charts?kind=trending&genre=soundcloud:genres:#{@genre}&limit=10&linked_partitioning=1&client_id=" + ENV["SOUNDCLOUD_CLIENT_ID"]
       track = JSON.parse JSON.generate HTTParty.get(req)
