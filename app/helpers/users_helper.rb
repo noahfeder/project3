@@ -123,16 +123,26 @@ module UsersHelper
       # Major help from http://stackoverflow.com/questions/35688367/access-soundcloud-charts-with-api
       req = "https://api-v2.soundcloud.com/charts?kind=trending&genre=soundcloud:genres:#{@genre}&limit=10&linked_partitioning=1&client_id=" + ENV["SOUNDCLOUD_CLIENT_ID"]
       track = JSON.parse JSON.generate HTTParty.get(req)
-      if track["collection"][0]["track"]["permalink_url"]
-        uri = track["collection"][0]["track"]["permalink_url"]
-        client = Soundcloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
-        embed_info = client.get('/oembed', :url => uri)
-        @sound = Sound.find_by_genre(@genre) || Sound.create(genre: @genre)
-        @sound.update(embed_info: JSON.generate(embed_info))
+      if track
+        if track["collection"]
+          if track["collection"][0]
+            if track["collection"][0]["track"]
+              if track["collection"][0]["track"]["permalink_url"]
+                uri = track["collection"][0]["track"]["permalink_url"]
+                client = Soundcloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
+                embed_info = client.get('/oembed', :url => uri)
+                @sound = Sound.find_by_genre(@genre) || Sound.create(genre: @genre)
+                @sound.update(embed_info: JSON.generate(embed_info))
+                embed_info = @sound.embed_info
+                $redis.set("sound_#{@genre}", embed_info)
+                $redis.expire("sound_#{@genre}", 8.hours.to_i)
+              end
+            end
+          end
+        end
+      else
+        embed_info = JSON.generate({title: "", html: ""})
       end
-      embed_info = @sound.embed_info
-      $redis.set("sound_#{@genre}", embed_info)
-      $redis.expire("sound_#{@genre}", 8.hours.to_i)
     end
     @embed_info = JSON.load(embed_info)
     @song_title = @embed_info["title"]
