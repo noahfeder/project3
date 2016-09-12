@@ -66,6 +66,20 @@ Gems Used:
 * rails_real_favicon
   * Generate favicons and meta tags
 
+Biggest wins:
+* Seamless login for chrome extension
+* Super clean and responsive design
+* Fast load times by cacheing almost everything
+
+Future goals:
+* More customization (genres, topics, etc)
+* Refresh individual sections
+* Favorites RESTful API
+* Links API
+* weather details
+* Attribution on bg image
+* Better cacheing of bg image for load times
+
 Planning:
 >![](http://imgur.com/ZD7Mb4V.jpg)
 
@@ -74,3 +88,5 @@ Wireframing and ERB:
 
 Wireframe:
 >![](http://i.imgur.com/ITJK65g.png)
+
+### &hearts;  -  Alejandra, Ethan, Ian, and Noah
