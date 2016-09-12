@@ -118,14 +118,16 @@ module UsersHelper
 
   def fetch_track
     @genre = genre
-    client = Soundcloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
     embed_info = $redis.get("sound_#{@genre}")
     if embed_info.nil?
-      track = JSON.load(JSON.generate(client.get('/tracks', :limit => 1, :order => 'hotness', :genres => @genre)))
-      uri = track[0]["uri"]
-      embed_info = client.get('/oembed', :url => uri)
-      @sound = Sound.find_by_genre(@genre) || Sound.create(genre: @genre)
-      if uri
+      # Major help from http://stackoverflow.com/questions/35688367/access-soundcloud-charts-with-api
+      req = "https://api-v2.soundcloud.com/charts?kind=trending&genre=soundcloud:genres:#{@genre}&limit=10&linked_partitioning=1&client_id=" + ENV["SOUNDCLOUD_CLIENT_ID"]
+      track = JSON.parse JSON.generate HTTParty.get(req)
+      if track["collection"][0]["track"]["permalink_url"]
+        uri = track["collection"][0]["track"]["permalink_url"]
+        client = Soundcloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
+        embed_info = client.get('/oembed', :url => uri)
+        @sound = Sound.find_by_genre(@genre) || Sound.create(genre: @genre)
         @sound.update(embed_info: JSON.generate(embed_info))
       end
       embed_info = @sound.embed_info
@@ -138,7 +140,7 @@ module UsersHelper
   end
 
   def genre
-    ["Soundtrack","Ambient", "Trap"].sample
+    ["danceedm","hiphoprap","ambient","trap","jazz"].sample
   end
 
 end
