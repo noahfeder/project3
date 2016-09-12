@@ -123,6 +123,7 @@ module UsersHelper
       # Major help from http://stackoverflow.com/questions/35688367/access-soundcloud-charts-with-api
       req = "https://api-v2.soundcloud.com/charts?kind=trending&genre=soundcloud:genres:#{@genre}&limit=10&linked_partitioning=1&client_id=" + ENV["SOUNDCLOUD_CLIENT_ID"]
       track = JSON.parse JSON.generate HTTParty.get(req)
+      # I'M SORRY SANDI
       if track
         if track["collection"]
           if track["collection"][0]
