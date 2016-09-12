@@ -151,8 +151,7 @@ module UsersHelper
   end
 
   def genre
-    # ["danceedm","hiphoprap","ambient","trap","jazz"].sample
-    ["piano","trance","comedy","science","entertainment"].sample
+    ["danceedm","hiphoprap","ambient","trap","jazz"].sample
   end
 
 end
