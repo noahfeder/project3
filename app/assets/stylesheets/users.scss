@@ -334,7 +334,6 @@ body {
         flex: 1 0 20%;
         border: 1px solid #000;
         border-radius: 3px;
-
       }
     }
     .items {
@@ -350,6 +349,10 @@ body {
       padding: $minor-padding;
       .todo {
         position: relative;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
         &:nth-child(even) {
           background-color: $primary-color;
         }
@@ -357,19 +360,32 @@ body {
           text-decoration: line-through;
         }
         .delete_todo {
-          float: right;
-          flex: 1 0 20%;
-          border: 1px solid #000;
-          border-radius: 3px;
-          text-shadow: 1px 1px 1px #000;
-
+          align-self: flex-end;
+          flex: 0 0 18px;
+          height: 18px;
+          border: none;
+          padding: 2px 3px;
+          margin: 2px;
+          border-radius: 2px;
+          background-color: transparent;
+          color: $font-color;
+          cursor: pointer;
+          &:hover {
+            text-shadow: 0px 0px 3px #eee;
+          }
         }
         span {
           padding: 0px 3px;
+          flex: 1 0 60%;
           width: auto;
           height: auto;
           position: absolute;
           left: 20px;
+        }
+        input[type="checkbox"] {
+          flex: 0 0 12px;
+          align-self: flex-start;
+          margin: 5.5px;
         }
       }
     }
