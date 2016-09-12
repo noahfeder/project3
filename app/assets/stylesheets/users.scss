@@ -48,9 +48,7 @@ $header-font: 'Vollkorn';
   text-shadow: 0px 0px 15px #222;
 }
 
-.action {
 
-}
 
 .user_email_input {
   float:right;
@@ -334,6 +332,9 @@ body {
       }
       .submit_item {
         flex: 1 0 20%;
+        border: 1px solid #000;
+        border-radius: 3px;
+
       }
     }
     .items {
@@ -357,6 +358,11 @@ body {
         }
         .delete_todo {
           float: right;
+          flex: 1 0 20%;
+          border: 1px solid #000;
+          border-radius: 3px;
+          text-shadow: 1px 1px 1px #000;
+
         }
         span {
           padding: 0px 3px;
