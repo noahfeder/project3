@@ -104,13 +104,15 @@ $(document).ready(function() {
   };
 
   function appendData(data) {
-    appendTweets(data.twitter);
-    appendArticles(data.articles);
-    appendSound(data.sound);
-    appendWeather(data.weather);
-    appendTodos(data.todos);
-    appendName(data.name);
-    appendForm(data.id);
+    if ($('.header')[0]) {
+      appendTweets(data.twitter);
+      appendArticles(data.articles);
+      appendSound(data.sound);
+      appendWeather(data.weather);
+      appendTodos(data.todos);
+      appendName(data.name);
+      appendForm(data.id);
+    }
     appendPics(data.pics);
   };
 
