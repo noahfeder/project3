@@ -41,7 +41,8 @@ class User < ApplicationRecord
       @user.email = auth["email"]
       @user.fname = auth["given_name"]
       @user.lname = auth["family_name"]
-      @user.password = "password"
+      @user.password = Faker::Internet.password(10,20,true,true)
+      # TODO Email user with this temporary password
       @user.lat = auth["latitude"].to_f
       @user.lng = auth["longitude"].to_f
       twitter = Twitter::REST::Client.new do |config|
