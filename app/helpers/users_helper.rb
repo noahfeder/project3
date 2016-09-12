@@ -146,8 +146,13 @@ module UsersHelper
       end
     end
     @embed_info = JSON.load(embed_info)
-    @song_title = @embed_info["title"]
-    @scembed = @embed_info["html"].sub!("show_artwork=true","show_artwork=false").sub!("visual=true","visual=false").html_safe
+    if @embed_info.nil?
+      @song_title = ""
+      @scembed = ""
+    else
+      @song_title = @embed_info["title"]
+      @scembed = @embed_info["html"].sub!("show_artwork=true","show_artwork=false").sub!("visual=true","visual=false").html_safe
+    end
   end
 
   def genre
