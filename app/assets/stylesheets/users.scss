@@ -68,6 +68,7 @@ body {
   background-position: 0 0;
   background-repeat: no-repeat;
   color: $font-color;
+  overflow: hidden;
   // standardizing links across the page
   a {
     text-decoration: none;
