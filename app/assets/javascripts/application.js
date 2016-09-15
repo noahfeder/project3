@@ -27,12 +27,12 @@ $(document).ready(function() {
   function appendTweets(data) {
     data.local.forEach(function(el,index) {
       if (index < 10) {
-        build('div',el.url,el.name,'tweet','.tweetset.local');
+        build('div',el.url,el.name,'tweet','.tweetset.local .trendlist');
       }
     });
     data.global.forEach(function(el,index) {
       if (index < 10) {
-        build('div',el.url,el.name,'tweet','.tweetset.global');
+        build('div',el.url,el.name,'tweet','.tweetset.global .trendlist');
       }
     })
   };// end of appendTweets function

@@ -16,20 +16,7 @@ $mobile: 550px;
 $main-font: 'Quattrocento Sans';
 $header-font: 'Vollkorn';
 
-
-.weather {
-  text-shadow: 0px 0px 8px #222;
-}
-
-.location {
-  text-shadow: 0px 0px 8px #222;
-}
-
-.welcome {
-  text-shadow: 0px 0px 8px #222;
-}
-
-#edit_name {
+.darkshadow {
   text-shadow: 0px 0px 8px #222;
 }
 
@@ -48,16 +35,6 @@ $header-font: 'Vollkorn';
   text-shadow: 0px 0px 15px #222;
 }
 
-
-
-.user_email_input {
-  float:right;
-}
-
-.login_password_input {
-  float:right;
-}
-
 .new_user_container {
   height: 100px;
   width: 260px;
@@ -66,6 +43,9 @@ $header-font: 'Vollkorn';
   text-shadow: 0px 0px 15px #222;
 }
 
+.login form .field input, .login form .field-login input, .new_user form .field input {
+  float:right;
+}
 
 .new_user{
   font-family: $main-font;
@@ -74,23 +54,6 @@ $header-font: 'Vollkorn';
   text-shadow: 0px 0px 15px #222;
 
 }
-
-.fname_input {
-  float:right;
-}
-
-.lname_input {
-  float:right;
-}
-
-.email_input {
-  float:right;
-}
-
-.password_input {
-  float:right;
-}
-
 
 body {
   height: 100vh;
@@ -174,6 +137,7 @@ body {
     position: relative;
     display: flex;
     flex-flow: column nowrap;
+    @extend .darkshadow;
     & > div {
       flex: 0 1;
     }
@@ -192,17 +156,19 @@ body {
     font-family: $header-font, serif;
     width: 100%;
     .welcome {
+      @extend .darkshadow;
       margin: 0 auto;
       display: flex;
       flex-flow: row nowrap;
       justify-content: center;
       margin-top: $minor-padding * 2;
       input {
+        @extend .darkshadow;
         -webkit-appearance: none;
         background-color: transparent;
         border: none;
         padding: 0 8px;
-        font-size: 2rem;
+        font-size: 3rem;
         color: $font-color;
         font-family: $header-font, serif;
         font-weight: bold;
@@ -218,13 +184,14 @@ body {
         -webkit-margin-before: 0;
         -webkit-margin-after: 0;
         vertical-align: text-bottom;
-        line-height: 2rem;
+        line-height: 3rem;
+        font-size: 3rem;
         text-align: right;
         display: table;
       }
       & > * {
         flex: 0 1;
-        height: 2rem;
+        height: 3rem;
       }
     }
   }
@@ -248,6 +215,7 @@ body {
   }
 
   .top {
+    @extend .darkshadow;
     font-size: 2em;
     font-weight: 600;
     font-family: $header-font, sans-serif;
@@ -258,7 +226,7 @@ body {
     transition: text-shadow 400ms;
     &:hover {
       cursor: pointer;
-      text-shadow: 0px 0px 9px #222;
+      text-shadow: 0px 0px 8px #666;
     }
   }
 
@@ -285,6 +253,11 @@ body {
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
         -moz-backface-visibility: hidden;
+        .trendlist {
+          padding: 0;
+          overflow: auto;
+          height: calc(90% - 10px);
+        }
         h2 {
           color: $secondary-color;
           text-align: center;
@@ -428,14 +401,13 @@ body {
   }
   img {
     cursor: pointer;
-    transition: transform 800ms, -webkit-filter 800ms;
+    transition: transform 800ms;
     position: absolute;
     height: 6vh;
     width: auto;
     margin: 2vh;
     &:first-child:hover {
       transform: rotate(360deg);
-      -webkit-filter: drop-shadow(0px 0px 5px $background-color);
     }
     &.settings_button {
       right: 0;
@@ -462,7 +434,7 @@ visibility: hidden;
 
 .temp {
   font-family: $header-font;
-  font-size: 2em;
+  font-size: 3rem;
 }
 
 .settings.flipup {
@@ -526,7 +498,6 @@ visibility: hidden;
     }
 }
 .soc {
-    overflow:hidden;
     list-style:none;
     opacity: 0;
     z-index: -1;
