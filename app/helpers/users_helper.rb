@@ -14,7 +14,6 @@ module UsersHelper
   end
 
   def get_chrome_user(auth)
-    puts auth
     @user = User.find_or_create_by_uid(auth)
   end
 
@@ -119,31 +118,23 @@ module UsersHelper
   def fetch_track
     @genre = genre
     embed_info = $redis.get("sound_#{@genre}")
-    unless embed_info.nil?
+    if embed_info.nil?
+      @sound = Sound.find_by_genre(@genre) || Sound.create(genre: @genre)
       # Major help from http://stackoverflow.com/questions/35688367/access-soundcloud-charts-with-api
-      req = "https://api-v2.soundcloud.com/charts?kind=trending&genre=soundcloud:genres:#{@genre}&limit=10&linked_partitioning=1&client_id=" + ENV["SOUNDCLOUD_CLIENT_ID"]
-      track = JSON.parse JSON.generate HTTParty.get(req)
-      # I'M SORRY SANDI
-      if track
-        if track["collection"]
-          if track["collection"][0]
-            if track["collection"][0]["track"]
-              if track["collection"][0]["track"]["permalink_url"]
-                uri = track["collection"][0]["track"]["permalink_url"]
-                client = Soundcloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
-                embed_info = client.get('/oembed', :url => uri)
-                @sound = Sound.find_by_genre(@genre) || Sound.create(genre: @genre)
-                @sound.update(embed_info: JSON.generate(embed_info))
-                embed_info = @sound.embed_info
-                $redis.set("sound_#{@genre}", embed_info)
-                $redis.expire("sound_#{@genre}", 8.hours.to_i)
-              end
-            end
-          end
+      req = "https://api-v2.soundcloud.com/charts?kind=trending&genre=soundcloud:genres:#{@genre}&limit=10&linked_partitioning=1&client_id=#{ENV["SOUNDCLOUD_CLIENT_ID"]}"
+      track_res = HTTParty.get(req)
+      if track_res.code == 200
+        track = JSON.parse track_res.body
+        uri = track["collection"][0]["track"]["permalink_url"]
+        embed_res = HTTParty.get("http://soundcloud.com/oembed?url=#{uri}&format=json")
+        if embed_res.code == 200
+          embed_info = JSON.parse embed_res.body
+          @sound.update(embed_info: JSON.generate(embed_info))
         end
-      else
-        embed_info = JSON.generate({title: "", html: ""})
       end
+      embed_info = @sound.embed_info
+      $redis.set("sound_#{@genre}", embed_info)
+      $redis.expire("sound_#{@genre}", 8.hours.to_i)
     end
     @embed_info = JSON.load(embed_info)
     if @embed_info.nil?
@@ -156,7 +147,7 @@ module UsersHelper
   end
 
   def genre
-    ["danceedm","hiphoprap","ambient","trap","jazz"].sample
+    ["danceedm","hiphoprap","ambient","electronic","indie","rock","trap","jazzblues"].sample
   end
 
 end
