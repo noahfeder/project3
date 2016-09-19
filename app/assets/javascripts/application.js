@@ -46,7 +46,7 @@ $(document).ready(function() {
     var $sc = $('.soundcloud');
     var $wrapper = $('<div class="title_wrapper">');
     var $div = $('<div class="song_title">');
-    var $link = $(`<a target="_blank" alt="${data.song_title}" href="${data.uri}">${data.song_title}</a>`)
+    var $link = $('<a target="_blank" href="' + data.uri + '">' + data.song_title + '</a>')
     $link.appendTo($div);
     $div.appendTo($wrapper);
     $sc.html(data.scembed)
