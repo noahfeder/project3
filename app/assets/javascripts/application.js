@@ -98,16 +98,20 @@ $(document).ready(function() {
   };// end of appendTodos function
 
   function appendForm(id) {
-    $('.edit_user').attr({
-      id: 'edit_user_' + id,
-      action: '/users/' + id
-    });
-    $('#todo_user_id').val(id);
+    if (id) {
+      $('.edit_user').attr({
+        id: 'edit_user_' + id,
+        action: '/users/' + id
+      });
+      $('#todo_user_id').val(id);
+    }
   };// end of appendForm function
 
   function appendName(name) {
-    $('.welcome div').text("Welcome, ")
-    updateInput(name);
+    if (name) {
+      $('.welcome div').text("Welcome, ")
+      updateInput(name);
+    }
   };// end of appendName function
 
   function appendPics (pics){
