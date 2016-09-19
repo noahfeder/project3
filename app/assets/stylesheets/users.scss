@@ -279,6 +279,10 @@ body {
       overflow-x: hidden;
       padding-top: 0;
       background-color: $primary-color;
+      p {
+        -webkit-margin-before: 10px;
+        -webkit-margin-after: 10px;
+      }
     }
     .top {
       color: $tertiary-color;
@@ -296,6 +300,7 @@ body {
       justify-content: space-between;
       background-color: $primary-color;
       font-size: 1.5rem;
+      padding: 0.5 * $minor-padding;
       #todo_item {
         flex: 0 1 70%;
         width: 70%;
@@ -344,7 +349,7 @@ body {
       -webkit-padding-start: 0px;
       background-color: $primary-color;
       height: 100%;
-      padding: $minor-padding;
+      padding: 0px $minor-padding;
       .todo {
         position: relative;
         display: flex;
