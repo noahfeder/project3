@@ -255,7 +255,7 @@ $(document).ready(function() {
        }
      });
 
-    $('.footer img:first-child').click(function(event) {
+    $('.footer .logo').click(function(event) {
         $('.soc').toggleClass('showSoc');
     });
   }
