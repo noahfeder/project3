@@ -1,23 +1,16 @@
-User.destroy_all
+# seed sounds
 
-woeids = ["1154726","23424856","2295402","2391279","2418046"]
+Sound.destroy_all
 
-10.times do
+genres = ["danceedm","hiphoprap","ambient","electronic","indie","rock","trap","jazzblues"]
 
-  @user = User.create({
-      fname: Faker::Name.first_name,
-      lname: Faker::Name.last_name,
-      email: Faker::Internet.email,
-      password: "test",
-      lat: Faker::Address.latitude.to_f,
-      lng: Faker::Address.longitude.to_f,
-      woeid: woeids.sample
-    })
-
-  5.times do
-    @user.todos.create({
-      completed: [true,false].sample,
-      item: Faker::Hipster.word
-      })
-  end
+genres.each do |genre|
+  req = "https://api-v2.soundcloud.com/charts?kind=trending&genre=soundcloud:genres:#{genre}&limit=10&linked_partitioning=1&client_id=#{ENV["SOUNDCLOUD_CLIENT_ID"]}"
+  track_res = HTTParty.get(req)
+  track = JSON.parse track_res.body
+  uri = track["collection"][0]["track"]["permalink_url"]
+  embed_res = HTTParty.get("http://soundcloud.com/oembed?url=#{uri}&format=json")
+  embed_info = JSON.parse embed_res.body
+  embed_info["uri"] = uri
+  Sound.create(genre: genre, embed_info: JSON.generate(embed_info))
 end

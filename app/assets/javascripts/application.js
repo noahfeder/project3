@@ -46,8 +46,9 @@ $(document).ready(function() {
     var $sc = $('.soundcloud');
     var $wrapper = $('<div class="title_wrapper">');
     var $div = $('<div class="song_title">');
+    var $link = $(`<a target="_blank" alt="${data.song_title}" href="${data.uri}">${data.song_title}</a>`)
+    $link.appendTo($div);
     $div.appendTo($wrapper);
-    $div.text(data.song_title);
     $sc.html(data.scembed)
       .append($wrapper);
   }// end of appendSound function
@@ -100,7 +101,10 @@ $(document).ready(function() {
   };// end of appendName function
 
   function appendPics (pics){
-    $('body').css('background-image', 'url('+ pics + ')');
+    $('body').css('background-image', 'url('+ pics.urls.raw + ')');
+    $('.unsplash').attr({
+      href: pics.links.html
+    });
   };
 
   function appendData(data) {
@@ -251,7 +255,7 @@ $(document).ready(function() {
        }
      });
 
-    $('.footer img:first-child').click(function(event) {
+    $('.footer .logo').click(function(event) {
         $('.soc').toggleClass('showSoc');
     });
   }

@@ -21,7 +21,8 @@ class DataController < ApplicationController
       articles: @response,
       sound: {
         song_title: @song_title,
-        scembed: @scembed
+        scembed: @scembed,
+        uri: @uri
       },
       weather: @results,
       todos: @user.todos,
