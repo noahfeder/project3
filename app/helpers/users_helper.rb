@@ -60,15 +60,14 @@ module UsersHelper
   end
 
   def fetch_pics
-     img = $redis.get('img')
-     if img.nil?
+    img = $redis.get('img')
+    if img.nil?
       base = "http://api.unsplash.com/photos/random?orientation=landscape&featured=true&query=architecture"
-      response = JSON.generate(HTTParty.get(base + "&client_id=" + ENV['UNSPLASH_APP_ID']))
-      img = JSON.load(response)["urls"]["raw"]
+      img = HTTParty.get(base + "&client_id=" + ENV['UNSPLASH_APP_ID']).body
       $redis.set('img', img)
       $redis.expire('img', 10.minutes.to_i)
      end
-    @img = img
+    @img = JSON.load(img)
   end
 
 

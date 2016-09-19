@@ -101,7 +101,10 @@ $(document).ready(function() {
   };// end of appendName function
 
   function appendPics (pics){
-    $('body').css('background-image', 'url('+ pics + ')');
+    $('body').css('background-image', 'url('+ pics.urls.raw + ')');
+    $('.unsplash').attr({
+      href: pics.links.html
+    });
   };
 
   function appendData(data) {
