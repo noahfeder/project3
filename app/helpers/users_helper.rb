@@ -129,6 +129,7 @@ module UsersHelper
         embed_res = HTTParty.get("http://soundcloud.com/oembed?url=#{uri}&format=json")
         if embed_res.code == 200
           embed_info = JSON.parse embed_res.body
+          embed_info["uri"] = uri
           @sound.update(embed_info: JSON.generate(embed_info))
         end
       end
@@ -140,9 +141,11 @@ module UsersHelper
     if @embed_info.nil?
       @song_title = ""
       @scembed = ""
+      @uri = ""
     else
       @song_title = @embed_info["title"]
       @scembed = @embed_info["html"].sub!("show_artwork=true","show_artwork=false").sub!("visual=true","visual=false").html_safe
+      @uri = @embed_info["uri"]
     end
   end
 

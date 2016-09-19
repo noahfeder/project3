@@ -410,6 +410,7 @@ body {
     transition: 400ms transform linear;
     transform-origin: bottom center;
     transform: rotateX(-90deg);
+    z-index: 2;
     input {
       background: none;
       border: none;
@@ -422,6 +423,18 @@ body {
       flex: 1 0 50%;
       text-align: center;
       height: 1rem;
+      position: relative;
+    }
+  }
+  .unsplash {
+    position: absolute;
+    left: calc(50% - 5vh);
+    -webkit-filter: drop-shadow(0px 0px 5px #666);
+    margin: 2vh;
+    transition: -webkit-filter 400ms;
+    &:hover {
+      transform: none;
+      -webkit-filter: drop-shadow(0px 0px 5px #FAFAFA);
     }
   }
   img {
@@ -430,13 +443,16 @@ body {
     position: absolute;
     height: 6vh;
     width: auto;
-    margin: 2vh 2vh 2vh 0;
-    &:first-child:hover {
-      transform: rotate(360deg);
-      -webkit-filter: drop-shadow(0px 0px 5px #FAFAFA);
+    &.logo {
+      margin: 2vh 2vh 2vh 0;
+      &:hover {
+        transform: rotate(360deg);
+        -webkit-filter: drop-shadow(0px 0px 5px #FAFAFA);
+      }
     }
     &.settings_button {
       right: 0;
+      margin: 2vh 0 2vh 2vh;
       &:hover {
         transform: rotate(360deg);
       }
